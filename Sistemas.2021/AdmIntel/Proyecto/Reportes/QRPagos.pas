@@ -1,0 +1,167 @@
+unit QRPagos;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  DB, DBTables, QRCTRLS, QUICKRPT, ExtCtrls;
+
+type
+  TfrmQRPagos = class(TForm)
+    rpt: TQuickRep;
+    DetailBand1: TQRBand;
+    PageFooterBand1: TQRBand;
+    QRSysData2: TQRSysData;
+    ColumnHeaderBand1: TQRBand;
+    QRLabel1: TQRLabel;
+    QRLabel7: TQRLabel;
+    QRDBText2: TQRDBText;
+    QRDBText6: TQRDBText;
+    QRBand2: TQRBand;
+    QRLabel12: TQRLabel;
+    QRLabel3: TQRLabel;
+    QRDBText1: TQRDBText;
+    QRLabel8: TQRLabel;
+    QRLabel2: TQRLabel;
+    QRDBText3: TQRDBText;
+    QRLabel4: TQRLabel;
+    QRLabel5: TQRLabel;
+    QRGroup1: TQRGroup;
+    qry: TQuery;
+    qryFECHA_PAGO: TDateTimeField;
+    qryRAZON_SOCIAL: TStringField;
+    qryIMPORTE: TFloatField;
+    qryTIPO_PAGO: TStringField;
+    qryNRO_CHEQUE: TStringField;
+    qrytxtTipoPago: TStringField;
+    QRDBText4: TQRDBText;
+    QRLabel6: TQRLabel;
+    QRLabel9: TQRLabel;
+    QRLabel10: TQRLabel;
+    QRLabel11: TQRLabel;
+    QRBand1: TQRBand;
+    QRLabel15: TQRLabel;
+    QRLabel16: TQRLabel;
+    QRSysData5: TQRSysData;
+    QRSysData1: TQRSysData;
+    lbl1: TQRLabel;
+    lbl2: TQRLabel;
+    qryPERSONAL: TStringField;
+    tblIDPERSONAL: TIntegerField;
+    qrytxtPagador: TStringField;
+    procedure qryCalcFields(DataSet: TDataSet);
+
+  private
+    procedure SumarImportes;
+    procedure AbrirQry(const FechaIni, FechaFin: TDateTime);
+
+  public
+    procedure VistaPrevia(const FechaIni, FechaFin: TDateTime);
+    procedure Imprimir(const FechaIni, FechaFin: TDateTime);
+
+  end;
+
+var
+  frmQRPagos: TfrmQRPagos;
+
+implementation
+
+uses PoolQuerys, Comunes;
+
+{$R *.dfm}
+
+procedure TfrmQRPagos.VistaPrevia(const FechaIni, FechaFin: TDateTime);
+begin
+  AbrirQry(FechaIni,FechaFin);
+  SumarImportes;
+  rpt.Preview;
+  Application.ProcessMessages;
+end;
+
+procedure TfrmQRPagos.Imprimir(const FechaIni, FechaFin: TDateTime);
+begin
+  AbrirQry(FechaIni,FechaFin);
+  SumarImportes;
+  rpt.Print;
+  Application.ProcessMessages;
+end;
+
+procedure TfrmQRPagos.SumarImportes;
+var
+  Tot, Efec, Cheq, Cute: Currency;
+begin
+  with qry do
+  begin
+    Tot := 0; Efec := 0; Cheq := 0; Cute := 0;
+    First;
+    while not Eof do
+    begin
+      Tot := Tot + qryIMPORTE.Value;
+      if qryTIPO_PAGO.Text = 'C' then
+        Cheq := Cheq + qryIMPORTE.Value
+      else if qryTIPO_PAGO.Text = 'E' then
+        Efec := Efec + qryIMPORTE.Value
+      else
+        Cute := Cute + qryIMPORTE.Value;
+      Next;
+    end;
+  end;
+  QRLabel8.Caption := CurrToStrF(Cheq,ffCurrency ,2);
+  QRLabel9.Caption := CurrToStrF(Efec,ffCurrency ,2);
+  lbl2.Caption := CurrToStrF(Cute,ffCurrency ,2);
+  QRLabel11.Caption := CurrToStrF(Tot,ffCurrency ,2);
+end;
+    {
+var
+  Tot, Efec, Cheq: Currency;
+begin
+  with qry do
+  begin
+    Tot := 0; Efec := 0; Cheq := 0;
+    First;
+    while not Eof do
+    begin
+      Tot := Tot + qryIMPORTE.Value;
+      if qryTIPO_PAGO.Text = 'C' then Cheq := Cheq + qryIMPORTE.Value
+      else Efec := Efec + qryIMPORTE.Value;
+      Next;
+    end;
+  end;
+  QRLabel8.Caption := CurrToStrF(Cheq,ffCurrency ,2);
+  QRLabel9.Caption := CurrToStrF(Efec,ffCurrency ,2);
+  QRLabel11.Caption := CurrToStrF(Tot,ffCurrency ,2);
+end; }
+
+procedure TfrmQRPagos.AbrirQry(const FechaIni, FechaFin: TDateTime);
+var
+  FI,FF: String;
+begin
+  FI := DateToStr(FechaIni);
+  FF := DateToStr(FechaFin);
+  qry.Filtered := False;
+  qry.Filter := 'FECHA_PAGO >= ' + #39 + FI + #39 +
+                ' AND FECHA_PAGO <= ' + #39 + FF + #39;
+  qry.Open;
+  qry.Filtered := True;
+
+  rpt.ReportTitle := 'Pagos a emitir desde ' + FI + ' hasta ' + FF;
+end;
+
+procedure TfrmQRPagos.qryCalcFields(DataSet: TDataSet);
+begin
+  if qryTIPO_PAGO.Text = 'C' then qrytxtTipoPago.Text := 'A pagar con cheque'
+  else
+  if qryTIPO_PAGO.Text = 'R' then qrytxtTipoPago.Text := 'A pagar con CUTE'
+  else  qrytxtTipoPago.Text := 'A pagar en efectivo';
+          
+  if (qryPERSONAL.Text = '') or (qryPERSONAL.IsNull) then
+    qrytxtPagador.Text := 'NO ESPECIFICADO'
+  else
+    qrytxtPagador.Text := qryPERSONAL.Text;
+
+
+ {if qryTIPO_PAGO.Text = 'C' then qrytxtTipoPago.Text := 'A pagar con cheque'
+  else qrytxtTipoPago.Text := 'A pagar en efectivo';}
+end;
+
+end.

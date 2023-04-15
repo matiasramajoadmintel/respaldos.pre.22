@@ -1,0 +1,844 @@
+object frmPagos: TfrmPagos
+  Left = 694
+  Top = 193
+  Width = 912
+  Height = 643
+  BorderIcons = []
+  Caption = 'Pagos pendientes'
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poDefault
+  OnActivate = FormCreate
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnDeactivate = FormDestroy
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Splitter1: TSplitter
+    Left = 288
+    Top = -5
+    Width = 9
+    Height = 516
+    Align = alNone
+  end
+  object pnlTitulo: TPanel
+    Left = 0
+    Top = 519
+    Width = 896
+    Height = 56
+    Align = alBottom
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clHighlight
+    Font.Height = -13
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 0
+    object Bevel4: TBevel
+      Left = 4
+      Top = 2
+      Width = 266
+      Height = 51
+    end
+    object Bevel1: TBevel
+      Left = 392
+      Top = 2
+      Width = 183
+      Height = 52
+    end
+    object Bevel2: TBevel
+      Left = 575
+      Top = 2
+      Width = 195
+      Height = 52
+    end
+    object Bevel3: TBevel
+      Left = 667
+      Top = 2
+      Width = 122
+      Height = 52
+    end
+    object lblTotDeuda: TLabel
+      Left = 8
+      Top = 17
+      Width = 256
+      Height = 21
+      AutoSize = False
+      Caption = 'lblTotDeuda'
+      Color = clHighlight
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clHighlightText
+      Font.Height = -13
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object lblCheque: TLabel
+      Left = 399
+      Top = 5
+      Width = 170
+      Height = 21
+      AutoSize = False
+      Color = clHighlight
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clHighlightText
+      Font.Height = -13
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object lblEfectivo: TLabel
+      Left = 399
+      Top = 29
+      Width = 170
+      Height = 21
+      AutoSize = False
+      Color = clHighlight
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clHighlightText
+      Font.Height = -13
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object btnPago: TSpeedButton
+      Left = 791
+      Top = 29
+      Width = 100
+      Height = 21
+      Caption = 'Confirmar pago'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clDefault
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      OnClick = btnPagoClick
+    end
+    object btnNumerar: TSpeedButton
+      Left = 791
+      Top = 6
+      Width = 100
+      Height = 21
+      Caption = 'Numerar'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clDefault
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      OnClick = btnNumerarClick
+    end
+    object Label1: TLabel
+      Left = 582
+      Top = 10
+      Width = 72
+      Height = 13
+      Caption = 'Fecha de pago'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clInfoText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label2: TLabel
+      Left = 582
+      Top = 33
+      Width = 66
+      Height = 13
+      Caption = 'N'#186' de cheque'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clInfoText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
+    end
+    object edtNroCheque: TEdit
+      Left = 686
+      Top = 29
+      Width = 100
+      Height = 21
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBtnText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+      OnEnter = Entrada_A_Campo
+      OnExit = Salida_de_Campo
+      OnKeyDown = Teclitas
+      OnKeyPress = PressEnter
+      OnKeyUp = Teclitas
+    end
+    object dtpFechaPago: TDateTimePicker
+      Left = 686
+      Top = 6
+      Width = 100
+      Height = 21
+      Date = 37750.782203692100000000
+      Time = 37750.782203692100000000
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clDefault
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 1
+    end
+  end
+  object Panel2: TPanel
+    Left = 0
+    Top = 575
+    Width = 896
+    Height = 30
+    Align = alBottom
+    TabOrder = 1
+    object Panel4: TPanel
+      Left = 710
+      Top = 1
+      Width = 185
+      Height = 28
+      Align = alRight
+      BevelOuter = bvNone
+      TabOrder = 0
+      object btnCerrar: TBitBtn
+        Left = 108
+        Top = 2
+        Width = 75
+        Height = 25
+        Caption = '&Cerrar'
+        TabOrder = 0
+        OnClick = btnCerrarClick
+        Glyph.Data = {
+          DE010000424DDE01000000000000760000002800000024000000120000000100
+          0400000000006801000000000000000000001000000000000000000000000000
+          80000080000000808000800000008000800080800000C0C0C000808080000000
+          FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00388888888877
+          F7F787F8888888888333333F00004444400888FFF444448888888888F333FF8F
+          000033334D5007FFF4333388888888883338888F0000333345D50FFFF4333333
+          338F888F3338F33F000033334D5D0FFFF43333333388788F3338F33F00003333
+          45D50FEFE4333333338F878F3338F33F000033334D5D0FFFF43333333388788F
+          3338F33F0000333345D50FEFE4333333338F878F3338F33F000033334D5D0FFF
+          F43333333388788F3338F33F0000333345D50FEFE4333333338F878F3338F33F
+          000033334D5D0EFEF43333333388788F3338F33F0000333345D50FEFE4333333
+          338F878F3338F33F000033334D5D0EFEF43333333388788F3338F33F00003333
+          4444444444333333338F8F8FFFF8F33F00003333333333333333333333888888
+          8888333F00003333330000003333333333333FFFFFF3333F00003333330AAAA0
+          333333333333888888F3333F00003333330000003333333333338FFFF8F3333F
+          0000}
+        NumGlyphs = 2
+      end
+    end
+  end
+  object Panel1: TPanel
+    Left = 296
+    Top = 0
+    Width = 600
+    Height = 516
+    BevelInner = bvLowered
+    BorderWidth = 3
+    TabOrder = 2
+    object grdPagos: TDBGrid
+      Left = 5
+      Top = 5
+      Width = 590
+      Height = 506
+      Align = alClient
+      BorderStyle = bsNone
+      Color = clBlack
+      DataSource = dsTMP
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clLime
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      Options = [dgTitles, dgColumnResize, dgColLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
+      ParentFont = False
+      TabOrder = 0
+      TitleFont.Charset = DEFAULT_CHARSET
+      TitleFont.Color = clWindowText
+      TitleFont.Height = -11
+      TitleFont.Name = 'MS Sans Serif'
+      TitleFont.Style = []
+      OnDblClick = grdPagosDblClick
+      OnTitleClick = grdPagosTitleClick
+      Columns = <
+        item
+          Expanded = False
+          FieldName = 'FECHA'
+          Title.Alignment = taCenter
+          Width = 75
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'DESCRIP'
+          Title.Alignment = taCenter
+          Title.Caption = 'Trab. en...'
+          Width = 106
+          Visible = True
+        end
+        item
+          Alignment = taRightJustify
+          Expanded = False
+          FieldName = 'NRO_CHEQUE'
+          Title.Caption = 'N'#186' Fact.'
+          Width = 52
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'EDIFICIO'
+          Title.Alignment = taCenter
+          Width = 130
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'IMPORTE'
+          Title.Alignment = taCenter
+          Title.Caption = 'Importe'
+          Width = 51
+          Visible = True
+        end
+        item
+          Alignment = taCenter
+          Expanded = False
+          FieldName = 'TIPO_PAGO'
+          Title.Alignment = taCenter
+          Title.Caption = 'Pago'
+          Width = 49
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'NRO_DECI'
+          Title.Alignment = taCenter
+          Title.Caption = 'DECI'
+          Width = 58
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'NRO_ORDEN'
+          Title.Alignment = taCenter
+          Title.Caption = 'Orden'
+          Width = 60
+          Visible = True
+        end>
+    end
+  end
+  object Panel3: TPanel
+    Left = 0
+    Top = -1
+    Width = 297
+    Height = 518
+    Caption = 'Panel3'
+    TabOrder = 3
+    object pnlLeft: TPanel
+      Left = 1
+      Top = 26
+      Width = 296
+      Height = 487
+      BevelInner = bvLowered
+      BorderWidth = 3
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 0
+      object grdDeudas: TDBGrid
+        Left = 5
+        Top = 21
+        Width = 286
+        Height = 491
+        BorderStyle = bsNone
+        Color = clBlack
+        DataSource = dsPagos
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clLime
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        Options = [dgTitles, dgColumnResize, dgColLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
+        ParentFont = False
+        TabOrder = 0
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'MS Sans Serif'
+        TitleFont.Style = []
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'PROVEEDOR'
+            Title.Alignment = taCenter
+            Title.Caption = 'Proveedor'
+            Width = 206
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'IMPORTE'
+            Title.Alignment = taCenter
+            Title.Caption = 'Importe'
+            Width = 77
+            Visible = True
+          end>
+      end
+    end
+    object Panel5: TPanel
+      Left = 1
+      Top = 1
+      Width = 295
+      Height = 41
+      Align = alTop
+      TabOrder = 1
+      object Label3: TLabel
+        Left = 4
+        Top = 3
+        Width = 49
+        Height = 13
+        Caption = 'Proveedor'
+      end
+      object edtDesc: TEdit
+        Left = 4
+        Top = 17
+        Width = 205
+        Height = 21
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 0
+        OnEnter = Entrada_A_Campo
+        OnExit = Salida_de_Campo
+        OnKeyDown = Teclitas
+        OnKeyPress = PressEnter
+        OnKeyUp = Teclitas
+      end
+      object btnBuscar: TBitBtn
+        Left = 214
+        Top = 17
+        Width = 76
+        Height = 21
+        Caption = 'Buscar...'
+        TabOrder = 1
+        OnClick = btnBuscarClick
+      end
+    end
+  end
+  object dsPagos: TDataSource
+    DataSet = qryPagos
+    Left = 88
+    Top = 104
+  end
+  object dsTMP: TDataSource
+    DataSet = TMP
+    Left = 332
+    Top = 102
+  end
+  object PAGO: TTable
+    OnNewRecord = PAGONewRecord
+    DatabaseName = 'ADB'
+    TableName = 'PAGO'
+    Left = 20
+    Top = 216
+    object PAGOIDPAGO: TIntegerField
+      FieldName = 'IDPAGO'
+      Required = True
+    end
+    object PAGOFECHA_PAGO: TDateTimeField
+      FieldName = 'FECHA_PAGO'
+    end
+    object PAGOIMPORTE: TFloatField
+      FieldName = 'IMPORTE'
+      Required = True
+    end
+    object PAGOTIPO_PAGO: TStringField
+      FieldName = 'TIPO_PAGO'
+      Size = 1
+    end
+    object PAGONRO_CHEQUE: TStringField
+      FieldName = 'NRO_CHEQUE'
+    end
+    object PAGOCOBRADO: TStringField
+      FieldName = 'COBRADO'
+      Size = 2
+    end
+    object PAGOProveedor: TStringField
+      FieldKind = fkLookup
+      FieldName = 'Proveedor'
+      LookupDataSet = dmQuerys.qryPagados
+      LookupKeyFields = 'IDPAGO'
+      LookupResultField = 'RAZON_SOCIAL'
+      KeyFields = 'IDPAGO'
+      Size = 45
+      Lookup = True
+    end
+    object PAGOIdProveedor: TIntegerField
+      FieldKind = fkLookup
+      FieldName = 'IdProveedor'
+      LookupDataSet = dmQuerys.qryPagados
+      LookupKeyFields = 'IDPAGO'
+      LookupResultField = 'IDPROVEEDOR'
+      KeyFields = 'IDPAGO'
+      Lookup = True
+    end
+    object PAGOIDPERSONAL: TIntegerField
+      FieldName = 'IDPERSONAL'
+    end
+  end
+  object TMP: TTable
+    OnNewRecord = TMPNewRecord
+    DatabaseName = 'ADB'
+    Exclusive = True
+    TableName = 'TEMP_PAGOS'
+    Left = 364
+    Top = 108
+    object TMPIDTEMP_PAGOS: TIntegerField
+      FieldName = 'IDTEMP_PAGOS'
+      Required = True
+    end
+    object TMPTIPO_GASTO: TStringField
+      FieldName = 'TIPO_GASTO'
+      Size = 1
+    end
+    object TMPIDGASTO: TIntegerField
+      FieldName = 'IDGASTO'
+      Required = True
+    end
+    object TMPDESCRIP: TStringField
+      FieldName = 'DESCRIP'
+      Required = True
+      Size = 50
+    end
+    object TMPIMPORTE: TFloatField
+      FieldName = 'IMPORTE'
+      Required = True
+      DisplayFormat = '#,0.00'
+    end
+    object TMPIDPROVEEDOR: TIntegerField
+      FieldName = 'IDPROVEEDOR'
+      Required = True
+    end
+    object TMPTIPO_PAGO: TStringField
+      FieldName = 'TIPO_PAGO'
+      Size = 1
+    end
+    object TMPIDEDIF: TIntegerField
+      FieldName = 'IDEDIF'
+    end
+    object TMPFECHA: TDateTimeField
+      DisplayLabel = 'Fecha'
+      FieldName = 'FECHA'
+      DisplayFormat = 'DD/MM/YYYY'
+    end
+    object TMPNRO_ORDEN: TIntegerField
+      FieldName = 'NRO_ORDEN'
+    end
+    object TMPNRO_DECI: TIntegerField
+      FieldName = 'NRO_DECI'
+    end
+    object TMPVACIOS: TStringField
+      FieldName = 'VACIOS'
+      Size = 2
+    end
+    object TMPEDIFICIO: TStringField
+      DisplayLabel = 'Edificio'
+      FieldName = 'EDIFICIO'
+      Size = 60
+    end
+    object TMPNRO_CHEQUE: TStringField
+      FieldName = 'NRO_CHEQUE'
+      Size = 12
+    end
+  end
+  object qryTrab: TQuery
+    DatabaseName = 'ADB'
+    SQL.Strings = (
+      'SELECT * FROM VW_TRAB_NO_PAGADOS'
+      'WHERE FECHA IS NOT NULL')
+    Left = 19
+    Top = 248
+    object qryTrabIDTRABAJO: TIntegerField
+      FieldName = 'IDTRABAJO'
+      Origin = 'ADB.VW_TRAB_NO_PAGADOS.IDTRABAJO'
+    end
+    object qryTrabNRO_PEDIDO: TIntegerField
+      FieldName = 'NRO_PEDIDO'
+      Origin = 'ADB.VW_TRAB_NO_PAGADOS.NRO_PEDIDO'
+    end
+    object qryTrabFECHA: TDateTimeField
+      FieldName = 'FECHA'
+      Origin = 'ADB.VW_TRAB_NO_PAGADOS.FECHA'
+    end
+    object qryTrabCOSTO: TFloatField
+      FieldName = 'COSTO'
+      Origin = 'ADB.VW_TRAB_NO_PAGADOS.COSTO'
+    end
+    object qryTrabIDPROVEEDOR: TIntegerField
+      FieldName = 'IDPROVEEDOR'
+      Origin = 'ADB.VW_TRAB_NO_PAGADOS.IDPROVEEDOR'
+    end
+    object qryTrabIDEDIFICIO: TIntegerField
+      FieldName = 'IDEDIFICIO'
+      Origin = 'ADB.VW_TRAB_NO_PAGADOS.IDEDIFICIO'
+    end
+    object qryTrabTIPO_TRAB: TStringField
+      FieldName = 'TIPO_TRAB'
+      Origin = 'ADB.VW_TRAB_NO_PAGADOS.TIPO_TRAB'
+      Size = 1
+    end
+    object qryTrabEdificio: TStringField
+      FieldKind = fkLookup
+      FieldName = 'Edificio'
+      LookupDataSet = dmDatos.EDIF
+      LookupKeyFields = 'IDEDIFICIO'
+      LookupResultField = 'DESCRIPCION'
+      KeyFields = 'IDEDIFICIO'
+      Size = 60
+      Lookup = True
+    end
+    object qryTrabNRO_FACT: TIntegerField
+      FieldKind = fkLookup
+      FieldName = 'NRO_FACT'
+      LookupDataSet = dmDatos.TRAB
+      LookupKeyFields = 'IDTRABAJO'
+      LookupResultField = 'NRO_FACT'
+      KeyFields = 'IDTRABAJO'
+      Lookup = True
+    end
+  end
+  object qryPagos: TQuery
+    AfterScroll = qryPagosAfterScroll
+    DatabaseName = 'ADB'
+    SQL.Strings = (
+      'SELECT IDPROVEEDOR, PROVEEDOR, SUM(IMPORTE) AS IMPORTE'
+      'FROM VW_PAGOS'
+      'GROUP BY PROVEEDOR, IDPROVEEDOR')
+    Left = 122
+    Top = 104
+    object qryPagosIDPROVEEDOR: TIntegerField
+      FieldName = 'IDPROVEEDOR'
+      Origin = 'ADB.VW_PAGOS.IDPROVEEDOR'
+    end
+    object qryPagosPROVEEDOR: TStringField
+      FieldName = 'PROVEEDOR'
+      Origin = 'ADB.VW_PAGOS.PROVEEDOR'
+      Size = 45
+    end
+    object qryPagosIMPORTE: TFloatField
+      FieldName = 'IMPORTE'
+      Origin = 'ADB.VW_PAGOS.IMPORTE'
+      DisplayFormat = '#,0.00'
+    end
+  end
+  object qryGasto: TQuery
+    DatabaseName = 'ADB'
+    SQL.Strings = (
+      'SELECT IDGASTO_AD, COSTO, IDPROVEEDOR, DESCRIP, FECHA'
+      'FROM VW_GASTO_AD'
+      'WHERE PAGADO = '#39'No'#39)
+    Left = 52
+    Top = 246
+    object qryGastoIDGASTO_AD: TIntegerField
+      FieldName = 'IDGASTO_AD'
+      Origin = 'ADB.VW_GASTO_AD.IDGASTO_AD'
+    end
+    object qryGastoCOSTO: TFloatField
+      FieldName = 'COSTO'
+      Origin = 'ADB.VW_GASTO_AD.COSTO'
+    end
+    object qryGastoIDPROVEEDOR: TIntegerField
+      FieldName = 'IDPROVEEDOR'
+      Origin = 'ADB.VW_GASTO_AD.IDPROVEEDOR'
+    end
+    object qryGastoDESCRIP: TStringField
+      FieldName = 'DESCRIP'
+      Origin = 'ADB.VW_GASTO_AD.DESCRIP'
+      Size = 60
+    end
+    object qryGastoFECHA: TDateTimeField
+      FieldName = 'FECHA'
+      Origin = 'ADB.VW_GASTO_AD.FECHA'
+    end
+  end
+  object qryServ: TQuery
+    DatabaseName = 'ADB'
+    SQL.Strings = (
+      
+        'SELECT IDSERV_EDIF, COSTO, IDPROVEEDOR, DESCRIP, IDEDIFICIO, FEC' +
+        'HA, VACIOS, NRO_FACT'
+      'FROM VW_SERV_EDIF'
+      'WHERE PAGADO = '#39'No'#39)
+    Left = 84
+    Top = 248
+    object qryServIDSERV_EDIF: TIntegerField
+      FieldName = 'IDSERV_EDIF'
+      Origin = 'ADB.VW_SERV_EDIF.IDSERV_EDIF'
+    end
+    object qryServCOSTO: TFloatField
+      FieldName = 'COSTO'
+      Origin = 'ADB.VW_SERV_EDIF.COSTO'
+    end
+    object qryServIDPROVEEDOR: TIntegerField
+      FieldName = 'IDPROVEEDOR'
+      Origin = 'ADB.VW_SERV_EDIF.IDPROVEEDOR'
+    end
+    object qryServDESCRIP: TStringField
+      FieldName = 'DESCRIP'
+      Origin = 'ADB.VW_SERV_EDIF.DESCRIP'
+      Size = 60
+    end
+    object qryServIDEDIFICIO: TIntegerField
+      FieldName = 'IDEDIFICIO'
+      Origin = 'ADB.VW_SERV_EDIF.IDEDIFICIO'
+    end
+    object qryServVACIOS: TStringField
+      FieldName = 'VACIOS'
+      Origin = 'ADB.VW_SERV_EDIF.VACIOS'
+      Size = 2
+    end
+    object qryServFECHA: TDateTimeField
+      FieldName = 'FECHA'
+      Origin = 'ADB.VW_SERV_EDIF.FECHA'
+    end
+    object qryServEdificio: TStringField
+      FieldKind = fkLookup
+      FieldName = 'Edificio'
+      LookupDataSet = dmDatos.qryEdificios
+      LookupKeyFields = 'IdEdificio'
+      LookupResultField = 'DESCRIPCION'
+      KeyFields = 'IDEDIFICIO'
+      Size = 60
+      Lookup = True
+    end
+    object qryServNRO_FACT: TIntegerField
+      FieldName = 'NRO_FACT'
+      Origin = 'ADB.VW_SERV_EDIF.NRO_FACT'
+    end
+  end
+  object TRAB: TTable
+    DatabaseName = 'ADB'
+    TableName = 'TRABAJO'
+    Left = 54
+    Top = 218
+    object TRABIDTRABAJO: TIntegerField
+      FieldName = 'IDTRABAJO'
+      Required = True
+    end
+    object TRABPAGADO: TStringField
+      FieldName = 'PAGADO'
+      Size = 2
+    end
+    object TRABIDPAGO: TIntegerField
+      FieldName = 'IDPAGO'
+    end
+    object TRABNRO_ORDEN: TIntegerField
+      FieldName = 'NRO_ORDEN'
+    end
+    object TRABNRO_DECI: TIntegerField
+      FieldName = 'NRO_DECI'
+    end
+    object TRABNRO_FACT: TIntegerField
+      FieldName = 'NRO_FACT'
+    end
+  end
+  object GASTO: TTable
+    DatabaseName = 'ADB'
+    TableName = 'GASTO_AD'
+    Left = 84
+    Top = 216
+    object GASTOPAGADO: TStringField
+      FieldName = 'PAGADO'
+      Size = 2
+    end
+    object GASTOIDGASTO_AD: TIntegerField
+      FieldName = 'IDGASTO_AD'
+      Required = True
+    end
+    object GASTOIDPAGO: TIntegerField
+      FieldName = 'IDPAGO'
+    end
+    object GASTONRO_ORDEN: TIntegerField
+      FieldName = 'NRO_ORDEN'
+    end
+    object GASTONRO_DECI: TIntegerField
+      FieldName = 'NRO_DECI'
+    end
+  end
+  object SERV: TTable
+    DatabaseName = 'ADB'
+    TableName = 'SERV_EDIF'
+    Left = 116
+    Top = 216
+    object SERVIDSERV_EDIF: TIntegerField
+      FieldName = 'IDSERV_EDIF'
+      Required = True
+    end
+    object SERVPAGADO: TStringField
+      FieldName = 'PAGADO'
+      Size = 2
+    end
+    object SERVIDPAGO: TIntegerField
+      FieldName = 'IDPAGO'
+    end
+    object SERVNRO_ORDEN: TIntegerField
+      FieldName = 'NRO_ORDEN'
+    end
+    object SERVNRO_DECI: TIntegerField
+      FieldName = 'NRO_DECI'
+    end
+    object SERVNRO_FACT: TIntegerField
+      FieldName = 'NRO_FACT'
+    end
+  end
+  object Query1: TQuery
+    DatabaseName = 'ADB'
+    SQL.Strings = (
+      
+        'SELECT Trabajo.IDTRABAJO, Trabajo.IDPAGO, Trabajo.COSTO, Trabajo' +
+        '.FECHA_FIN,   ( ('#39'Factura N'#186' '#39' || Trabajo.NRO_FACT)  || '#39' - '#39')  ' +
+        '|| Categoria.DESCRIP '
+      'FROM TRABAJO Trabajo'
+      '   INNER JOIN CATEGORIA Categoria'
+      '   ON  (Trabajo.IDCATEGORIA = Categoria.IDCATEGORIA)  '
+      'WHERE  Trabajo.PAGADO = '#39'S'#237#39' ')
+    Left = 200
+    Top = 104
+  end
+  object CHDEV: TTable
+    DatabaseName = 'ADB'
+    TableName = 'CHEQUE_DEVUELTO'
+    Left = 148
+    Top = 216
+    object CHDEVNRO_CHEQUE: TStringField
+      FieldName = 'NRO_CHEQUE'
+      Required = True
+    end
+    object CHDEVFECHA_DEV: TDateTimeField
+      FieldName = 'FECHA_DEV'
+      Required = True
+    end
+    object CHDEVTIPO: TStringField
+      FieldName = 'TIPO'
+      Size = 1
+    end
+  end
+end

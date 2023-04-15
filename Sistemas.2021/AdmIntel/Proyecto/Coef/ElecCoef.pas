@@ -1,0 +1,261 @@
+unit ElecCoef;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, Buttons, Grids, DBGrids, ExtCtrls, DB, DBTables, ComObj,
+  scExcelExport;
+
+
+
+type
+  TfrmElecCoef = class(TForm)
+    Panel1: TPanel;
+    grdDatos: TDBGrid;
+    Panel4: TPanel;
+    btnAgregar: TSpeedButton;
+    btnEliminar: TSpeedButton;
+    btnModificar: TSpeedButton;
+    Panel2: TPanel;
+    Panel5: TPanel;
+    btnCerrar: TBitBtn;
+    btnElegir: TBitBtn;
+    Query1: TQuery;
+    DataSource1: TDataSource;
+    Query1TIPO: TStringField;
+    Query1PERSONAL: TStringField;
+    Query1CANT_AMB: TIntegerField;
+    dbgrd1: TDBGrid;
+    btn1: TSpeedButton;
+    scExcelExport1: TscExcelExport;
+    Query1PORCENTAJE: TFloatField;
+    Query1PORCENTAJE2: TFloatField;
+    Edit3: TEdit;
+    Edit4: TEdit;
+    Edit5: TEdit;
+    Edit6: TEdit;
+    lbl1: TLabel;
+    lbl2: TLabel;
+    lbl3: TLabel;
+    lbl4: TLabel;
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure btnAgregarClick(Sender: TObject);
+    procedure btnEliminarClick(Sender: TObject);
+    procedure btnModificarClick(Sender: TObject);
+    procedure grdDatosTitleClick(Column: TColumn);
+    procedure grdDatosKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure btn1Click(Sender: TObject);
+  private
+    gTipoOrden, gOrden: String;
+    gModo:Byte;
+    procedure PrepararForm;
+    procedure PrepararQuery (Orden:String);
+    { Private declarations }
+  public
+    procedure Mostrar;
+    { Public declarations }
+  end;
+
+var
+  frmElecCoef: TfrmElecCoef;
+
+implementation
+
+uses Comunes, Tablas, IngCoef;
+
+{$R *.dfm}
+
+{************************************************************}
+{         PRIVADOS                                           }
+{************************************************************}
+
+procedure TfrmElecCoef.PrepararForm;
+begin
+        btnElegir.Visible:=(gModo=2) and (Query1.RecordCount<>0);
+        btnEliminar.Enabled:=(Query1.RecordCount<>0);
+        btnModificar.Enabled:=(Query1.RecordCount<>0);
+end;
+
+procedure TfrmElecCoef.PrepararQuery (Orden:String);
+var
+        Script: String;
+begin
+        Script:='SELECT * FROM COEFICIENTE_ALQUILER ORDER BY ' + Orden;
+        with Query1 do
+        begin
+                Close;
+                SQL.Clear;
+                SQL.Add(Script);
+                Open;
+        end;
+        PrepararForm;
+end;
+
+{************************************************************}
+{         PUBLICOS                                           }
+{************************************************************}
+
+procedure TfrmElecCoef.Mostrar;
+{gModo= 1:Mostrar 2:Elegir}
+begin
+        gModo:=1;
+        PrepararQuery (gOrden);
+        ShowModal;
+end;
+
+{************************************************************}
+{         EVENTOS                                            }
+{************************************************************}
+
+procedure TfrmElecCoef.FormCreate(Sender: TObject);
+begin
+        RecuperarEstadoGrilla (Name+'.col',grdDatos);
+        RecuperarEstadoVentana (Name,Self);
+        gTipoOrden:='ASC';
+        gOrden:='Tipo ' + gTipoOrden;
+end;
+
+procedure TfrmElecCoef.FormDestroy(Sender: TObject);
+begin
+        GuardarEstadoGrilla(Name+'.col',grdDatos);
+        GuardarEstadoVentana (Name, Self);
+end;
+
+procedure TfrmElecCoef.btnAgregarClick(Sender: TObject);
+var
+        R:Boolean;
+begin
+        with TfrmIngCoef.Create(nil) do
+        begin
+                R:=Insertar;
+                Release;
+        end;
+        if R then
+                PrepararQuery (gOrden);
+end;
+
+procedure TfrmElecCoef.btnEliminarClick(Sender: TObject);
+var
+        R:Boolean;
+begin
+        with TfrmIngCoef.Create(nil) do
+        begin
+                R:=Eliminar(Query1Tipo.Value,Query1Personal.Value,Query1Cant_Amb.Value);
+                Release;
+        end;
+        if R then
+                PrepararQuery (gOrden);
+end;
+
+procedure TfrmElecCoef.btnModificarClick(Sender: TObject);
+var
+        R:Boolean;
+begin
+        with TfrmIngCoef.Create(nil) do
+        begin
+                R:=Actualizar(Query1Tipo.Value,Query1Personal.Value,Query1Cant_Amb.Value);
+                Release;
+        end;
+        if R then
+                PrepararQuery (gOrden);
+end;
+
+procedure TfrmElecCoef.grdDatosTitleClick(Column: TColumn);
+var
+  F: TField;
+begin
+        F := Query1.FindField(Column.FieldName);
+        if F.FieldKind = fkData then
+        begin
+                if gTipoOrden = 'ASC' then
+                        gTipoOrden := 'DESC'
+                else
+                        gTipoOrden := 'ASC';
+                gOrden := Column.FieldName + ' ' + gTipoOrden;
+                PrepararQuery(gOrden);
+        end;
+end;
+
+procedure TfrmElecCoef.grdDatosKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+        if Key=13 then
+                btnModificarClick(Sender);
+        if Key=46 then
+                btnEliminarClick(Sender);
+        if Key=65 then
+                btnAgregarClick(Sender);
+end;
+
+procedure TfrmElecCoef.btn1Click(Sender: TObject);
+
+var
+  Excel, Libro : Variant;
+  i:integer;
+
+begin
+//    today:= Now;
+//    hoy:= DateToStr(today);
+    // Crea una aplicacion Excel.
+    Excel := CreateOleObject ('Excel.Application');
+    // La muestra (vas a ver un Excel como si lo hubieras ejecutado)
+    Excel.Visible := True;
+    // Agrega un libro.
+    Excel.WorkBooks.Add (-4167);
+    // Le asigna un nombre al libro
+    Excel.WorkBooks[1].WorkSheets[1].Name := 'Respaldo Ceficientes';
+    // Hace un puntero al libro del Excel.
+    Libro := Excel.WorkBooks[1].WorkSheets['Respaldo Ceficientes'];
+
+    //Query.SQL.Add (‘Consulta’);
+    Query1.Open;
+    i:=1;
+    while not Query1.EOF do
+    begin
+    // encabezado
+    Libro.Cells [1,1] := 'COEFICIENTES';
+    Libro.Cells [1,1].Font.Bold:=True;
+    Libro.Cells [1,1].Font.Size:=13;
+    Libro.Cells [2,1] := 'ARMADA ARGENTINA - ALCALDIA BNMDP';
+    Libro.Cells [2,1].Font.Bold:=True;
+    Libro.Cells [4,1]:= 'FECHA: '+DateToStr(Date);
+    Libro.Cells [4,1].Font.Bold:=True;
+
+
+    // aqui le ponemos nombre a los campos
+    Libro.Cells [7,1] := 'TIPO';
+    Libro.Cells [7,1].Font.Bold:=True;
+    Libro.Cells [7,2] := 'PERSONAL';
+    Libro.Cells [7,2].Font.Bold:=True;
+    Libro.Cells [7,3] := 'CANT.AMB';
+    Libro.Cells [7,3].Font.Bold:=True;
+    Libro.Cells [7,4] := 'PORCENTAJE 1';
+    Libro.Cells [7,4].Font.Bold:=True;
+    Libro.Cells [7,5] := 'PORCENTAJE 2';
+    Libro.Cells [7,5].Font.Bold:=True;
+
+    i:=i+1;
+    Libro.Cells [i+6,1] := Query1.FieldByName ('TIPO').AsString;
+    Libro.Cells [i+6,2] := Query1.FieldByName ('PERSONAL').AsString;
+    Libro.Cells [i+6,3] := Query1.FieldByName ('CANT_AMB').AsString;
+    Libro.Cells [i+6,4] := FormatFloat ('#.# %', (Query1.FieldByName ('PORCENTAJE').AsFloat));
+    Libro.Cells [i+6,5] := FormatFloat ('#.# %', (Query1.FieldByName ('PORCENTAJE2').AsFloat));
+    
+//dejo para muestra de recordatorio como se puede hacer de dos maneras distintas lo del porcentaje
+//    Libro.Cells [i+6,4] := (FormatFloat ('#.#', (Query1.FieldByName ('PORCENTAJE').AsFloat)) + '%');
+//    Libro.Cells [i+6,5] := (FormatFloat ('#.#', (Query1.FieldByName ('PORCENTAJE2').AsFloat)) + '%');
+
+    Query1.Next;
+    end;
+
+{scExcelExport1.Dataset:=grdDatos.DataSource.DataSet;
+scExcelExport1.ExportDataset;
+scExcelExport1.Disconnect;      }
+
+
+end;
+
+end.

@@ -1,0 +1,13 @@
+a otro nombre por ejemplo "proyecto backup"
+Miguel Angel dice:
+ok
+Miguel Angel dice:
+and?
+Luis dice:
+luego ir a d:\sistemas\admintel\backup , seleccionar la carpeta proyecto y copiar
+Luis dice:
+ir a d:\sistemas\admintel y pegar
+Luis dice:
+sobreescribir todo
+Luis dice:
+con el delphi cerrado

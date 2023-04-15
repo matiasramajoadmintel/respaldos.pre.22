@@ -1,0 +1,1064 @@
+object dmDatos: TdmDatos
+  OldCreateOrder = False
+  Left = 189
+  Top = 40
+  Height = 519
+  Width = 490
+  object ADB: TDatabase
+    AliasName = 'DBAdmin'
+    Connected = True
+    DatabaseName = 'ADB'
+    LoginPrompt = False
+    Params.Strings = (
+      'USER NAME=SYSDBA'
+      'PASSWORD=masterkey')
+    SessionName = 'Default'
+    TransIsolation = tiDirtyRead
+    Left = 20
+    Top = 10
+  end
+  object MAT: TTable
+    DatabaseName = 'ADB'
+    TableName = 'MATERIAL'
+    Left = 16
+    Top = 54
+    object MATIDMATERIAL: TIntegerField
+      FieldName = 'IDMATERIAL'
+      Required = True
+    end
+    object MATDESCRIP: TStringField
+      FieldName = 'DESCRIP'
+      Required = True
+      Size = 45
+    end
+  end
+  object MU: TTable
+    DatabaseName = 'ADB'
+    TableName = 'MAT_USADO'
+    Left = 58
+    Top = 54
+    object MUIDMATERIAL: TIntegerField
+      FieldName = 'IDMATERIAL'
+      Required = True
+    end
+    object MUIDTRABAJO: TIntegerField
+      FieldName = 'IDTRABAJO'
+      Required = True
+    end
+    object MUIDUNIDAD: TIntegerField
+      FieldName = 'IDUNIDAD'
+    end
+    object MUCANTIDAD: TFloatField
+      FieldName = 'CANTIDAD'
+    end
+    object MUMaterial: TStringField
+      FieldKind = fkLookup
+      FieldName = 'Material'
+      LookupDataSet = MAT
+      LookupKeyFields = 'IDMATERIAL'
+      LookupResultField = 'DESCRIP'
+      KeyFields = 'IDMATERIAL'
+      Size = 45
+      Lookup = True
+    end
+    object MUUnidad: TStringField
+      FieldKind = fkLookup
+      FieldName = 'Unidad'
+      LookupDataSet = UNI
+      LookupKeyFields = 'IDUNIDAD'
+      LookupResultField = 'ABREV'
+      KeyFields = 'IDUNIDAD'
+      Size = 15
+      Lookup = True
+    end
+  end
+  object TAREA: TTable
+    DatabaseName = 'ADB'
+    TableName = 'TAREA'
+    Left = 100
+    Top = 54
+    object TAREAIDTAREA: TIntegerField
+      FieldName = 'IDTAREA'
+      Required = True
+    end
+    object TAREADESCRIP: TStringField
+      FieldName = 'DESCRIP'
+      Required = True
+      Size = 150
+    end
+  end
+  object TRAB: TTable
+    OnCalcFields = TRABCalcFields
+    OnNewRecord = TRABNewRecord
+    DatabaseName = 'ADB'
+    TableName = 'TRABAJO'
+    Left = 143
+    Top = 54
+    object TRABIDTRABAJO: TIntegerField
+      FieldName = 'IDTRABAJO'
+    end
+    object TRABNRO_PEDIDO: TIntegerField
+      FieldName = 'NRO_PEDIDO'
+      Required = True
+    end
+    object TRABFECHA_INI: TDateTimeField
+      FieldName = 'FECHA_INI'
+      Required = True
+    end
+    object TRABFECHA_FIN: TDateTimeField
+      FieldName = 'FECHA_FIN'
+    end
+    object TRABCOSTO: TFloatField
+      FieldName = 'COSTO'
+      Required = True
+      currency = True
+    end
+    object TRABIDPROVEEDOR: TIntegerField
+      FieldName = 'IDPROVEEDOR'
+    end
+    object TRABIMPUTACION: TStringField
+      FieldName = 'IMPUTACION'
+      Size = 2
+    end
+    object TRABTIPO_TRAB: TStringField
+      FieldName = 'TIPO_TRAB'
+      Size = 1
+    end
+    object TRABIDCATEGORIA: TIntegerField
+      FieldName = 'IDCATEGORIA'
+    end
+    object TRABNRO_FACT: TIntegerField
+      FieldName = 'NRO_FACT'
+    end
+    object TRABPAGADO: TStringField
+      FieldName = 'PAGADO'
+      Size = 2
+    end
+    object TRABIDPAGO: TIntegerField
+      FieldName = 'IDPAGO'
+    end
+    object TRABNRO_ORDEN: TIntegerField
+      FieldName = 'NRO_ORDEN'
+    end
+    object TRABNRO_DECI: TIntegerField
+      FieldName = 'NRO_DECI'
+    end
+    object TRABTipo: TStringField
+      FieldKind = fkLookup
+      FieldName = 'Tipo'
+      LookupDataSet = CAT
+      LookupKeyFields = 'IDCATEGORIA'
+      LookupResultField = 'DESCRIP'
+      KeyFields = 'IDCATEGORIA'
+      Size = 45
+      Lookup = True
+    end
+    object TRABIdEdificio: TWordField
+      FieldKind = fkCalculated
+      FieldName = 'IdEdificio'
+      Calculated = True
+    end
+    object TRABProveedor: TStringField
+      FieldKind = fkLookup
+      FieldName = 'Proveedor'
+      LookupDataSet = PROV
+      LookupKeyFields = 'IDPROVEEDOR'
+      LookupResultField = 'RAZON_SOCIAL'
+      KeyFields = 'IDPROVEEDOR'
+      Size = 45
+      Lookup = True
+    end
+  end
+  object UNI: TTable
+    DatabaseName = 'ADB'
+    TableName = 'UNIDAD'
+    Left = 185
+    Top = 54
+    object UNIIDUNIDAD: TIntegerField
+      FieldName = 'IDUNIDAD'
+      Required = True
+    end
+    object UNIDESCRIP: TStringField
+      FieldName = 'DESCRIP'
+      Required = True
+      Size = 30
+    end
+    object UNIABREV: TStringField
+      FieldName = 'ABREV'
+      Required = True
+      Size = 15
+    end
+  end
+  object PROV: TTable
+    DatabaseName = 'ADB'
+    TableName = 'PROVEEDOR'
+    Left = 230
+    Top = 54
+    object PROVIDPROVEEDOR: TIntegerField
+      FieldName = 'IDPROVEEDOR'
+    end
+    object PROVRAZON_SOCIAL: TStringField
+      FieldName = 'RAZON_SOCIAL'
+      Required = True
+      Size = 45
+    end
+    object PROVNOMBRE_FANTASIA: TStringField
+      FieldName = 'NOMBRE_FANTASIA'
+      Size = 45
+    end
+    object PROVDOMICILIO: TStringField
+      FieldName = 'DOMICILIO'
+      Size = 45
+    end
+    object PROVTELEFONO: TStringField
+      FieldName = 'TELEFONO'
+      Size = 45
+    end
+    object PROVEMAIL: TStringField
+      FieldName = 'EMAIL'
+      Size = 45
+    end
+    object PROVCUIT: TStringField
+      FieldName = 'CUIT'
+      Size = 15
+    end
+  end
+  object TT: TTable
+    DatabaseName = 'ADB'
+    TableName = 'TRAB_TAREA'
+    Left = 16
+    Top = 104
+    object TTIDTRABAJO: TIntegerField
+      FieldName = 'IDTRABAJO'
+      Required = True
+    end
+    object TTIDTAREA: TIntegerField
+      FieldName = 'IDTAREA'
+      Required = True
+    end
+  end
+  object TESP: TTable
+    DatabaseName = 'ADB'
+    TableName = 'TIPO_ESPACIO'
+    Left = 58
+    Top = 104
+    object TESPIDTIPO_ESPACIO: TIntegerField
+      FieldName = 'IDTIPO_ESPACIO'
+      Required = True
+    end
+    object TESPDESCRIP: TStringField
+      FieldName = 'DESCRIP'
+      Required = True
+      Size = 60
+    end
+  end
+  object EC: TTable
+    DatabaseName = 'ADB'
+    TableName = 'ESPACIO_COMUN'
+    Left = 100
+    Top = 104
+    object ECIDEDIFICIO: TIntegerField
+      FieldName = 'IDEDIFICIO'
+      Required = True
+    end
+    object ECIDTIPO_ESPACIO: TIntegerField
+      FieldName = 'IDTIPO_ESPACIO'
+      Required = True
+    end
+  end
+  object TD: TTable
+    DatabaseName = 'ADB'
+    TableName = 'TRAB_DEPTO'
+    Left = 143
+    Top = 104
+    object TDIDTRABAJO: TIntegerField
+      FieldName = 'IDTRABAJO'
+      Required = True
+    end
+    object TDIDDEPARTAMENTO: TIntegerField
+      FieldName = 'IDDEPARTAMENTO'
+      Required = True
+    end
+    object TDIdEdificio: TWordField
+      FieldKind = fkLookup
+      FieldName = 'IdEdificio'
+      LookupDataSet = DEPTO
+      LookupKeyFields = 'IDDEPARTAMENTO'
+      LookupResultField = 'IDEDIFICIO'
+      KeyFields = 'IDDEPARTAMENTO'
+      Lookup = True
+    end
+  end
+  object TE: TTable
+    DatabaseName = 'ADB'
+    TableName = 'TRAB_EDIF'
+    Left = 187
+    Top = 104
+    object TEIDTRABAJO: TIntegerField
+      FieldName = 'IDTRABAJO'
+      Required = True
+    end
+    object TEIDEDIFICIO: TIntegerField
+      FieldName = 'IDEDIFICIO'
+      Required = True
+    end
+    object TEIDTIPO_ESPACIO: TIntegerField
+      FieldName = 'IDTIPO_ESPACIO'
+      Required = True
+    end
+  end
+  object CAT: TTable
+    DatabaseName = 'ADB'
+    TableName = 'CATEGORIA'
+    Left = 228
+    Top = 104
+    object CATIDCATEGORIA: TIntegerField
+      FieldName = 'IDCATEGORIA'
+      Required = True
+    end
+    object CATDESCRIP: TStringField
+      FieldName = 'DESCRIP'
+      Required = True
+      Size = 45
+    end
+  end
+  object SERV: TTable
+    DatabaseName = 'ADB'
+    TableName = 'SERVICIO'
+    Left = 18
+    Top = 152
+    object SERVIDSERVICIO: TIntegerField
+      FieldName = 'IDSERVICIO'
+      Required = True
+    end
+    object SERVDESCRIP: TStringField
+      FieldName = 'DESCRIP'
+      Required = True
+      Size = 60
+    end
+  end
+  object TGASTOAD: TTable
+    DatabaseName = 'ADB'
+    TableName = 'TIPO_GASTO_AD'
+    Left = 67
+    Top = 152
+    object TGASTOADIDTIPO_GASTO_AD: TIntegerField
+      FieldName = 'IDTIPO_GASTO_AD'
+      Required = True
+    end
+    object TGASTOADDESCRIP: TStringField
+      FieldName = 'DESCRIP'
+      Required = True
+      Size = 60
+    end
+  end
+  object TGASTOFI: TTable
+    DatabaseName = 'ADB'
+    TableName = 'TIPO_GASTO_FI'
+    Left = 126
+    Top = 152
+    object TGASTOFIIDTIPO_GASTO_FI: TIntegerField
+      FieldName = 'IDTIPO_GASTO_FI'
+      Required = True
+    end
+    object TGASTOFIDESCRIP: TStringField
+      FieldName = 'DESCRIP'
+      Required = True
+      Size = 60
+    end
+  end
+  object TING: TTable
+    DatabaseName = 'ADB'
+    TableName = 'TIPO_INGRESO'
+    Left = 178
+    Top = 152
+    object TINGIDTIPO_INGRESO: TIntegerField
+      FieldName = 'IDTIPO_INGRESO'
+      Required = True
+    end
+    object TINGDESCRIP: TStringField
+      FieldName = 'DESCRIP'
+      Required = True
+      Size = 60
+    end
+  end
+  object PAGO: TTable
+    DatabaseName = 'ADB'
+    TableName = 'PAGO'
+    Left = 224
+    Top = 152
+    object PAGOIDPAGO: TIntegerField
+      FieldName = 'IDPAGO'
+      Required = True
+    end
+    object PAGOCOBRADO: TStringField
+      FieldName = 'COBRADO'
+      Size = 2
+    end
+    object PAGOTIPO_PAGO: TStringField
+      FieldName = 'TIPO_PAGO'
+      Size = 1
+    end
+    object PAGONRO_CHEQUE: TStringField
+      FieldName = 'NRO_CHEQUE'
+    end
+    object PAGOFECHA_PAGO: TDateTimeField
+      FieldName = 'FECHA_PAGO'
+    end
+    object PAGOIMPORTE: TFloatField
+      FieldName = 'IMPORTE'
+      Required = True
+      currency = True
+    end
+    object PAGOProveedor: TStringField
+      FieldKind = fkLookup
+      FieldName = 'Proveedor'
+      LookupDataSet = dmQuerys.qryPagados
+      LookupKeyFields = 'IDPAGO'
+      LookupResultField = 'RAZON_SOCIAL'
+      KeyFields = 'IDPAGO'
+      Size = 60
+      Lookup = True
+    end
+  end
+  object DECI: TTable
+    DatabaseName = 'ADB'
+    TableName = 'NROS_DECI'
+    Left = 18
+    Top = 198
+    object DECIIDEDIFICIO: TIntegerField
+      FieldName = 'IDEDIFICIO'
+      Required = True
+    end
+    object DECIMES: TIntegerField
+      FieldName = 'MES'
+      Required = True
+    end
+    object DECIANIO: TIntegerField
+      FieldName = 'ANIO'
+    end
+    object DECINRO_MANT: TIntegerField
+      FieldName = 'NRO_MANT'
+      Required = True
+    end
+    object DECINRO_SERV: TIntegerField
+      FieldName = 'NRO_SERV'
+      Required = True
+    end
+    object DECIORDEN_MANT: TIntegerField
+      FieldName = 'ORDEN_MANT'
+    end
+    object DECIORDEN_SERV: TIntegerField
+      FieldName = 'ORDEN_SERV'
+    end
+  end
+  object EDIF: TTable
+    DatabaseName = 'ADB'
+    TableName = 'EDIFICIO'
+    Left = 60
+    Top = 200
+    object EDIFIDEDIFICIO: TIntegerField
+      FieldName = 'IDEDIFICIO'
+      Required = True
+    end
+    object EDIFDESCRIPCION: TStringField
+      FieldName = 'DESCRIPCION'
+      Required = True
+      Size = 50
+    end
+    object EDIFCOEFICIENTE: TIntegerField
+      FieldName = 'COEFICIENTE'
+      Required = True
+    end
+    object EDIFADMFISCAL: TStringField
+      FieldName = 'ADMFISCAL'
+      Size = 2
+    end
+  end
+  object DEPTO: TTable
+    OnCalcFields = DEPTOCalcFields
+    DatabaseName = 'ADB'
+    TableName = 'DEPARTAMENTO'
+    Left = 110
+    Top = 200
+    object DEPTOIDEDIFICIO: TIntegerField
+      FieldName = 'IDEDIFICIO'
+      Required = True
+    end
+    object DEPTOIDDEPARTAMENTO: TIntegerField
+      FieldName = 'IDDEPARTAMENTO'
+      Required = True
+    end
+    object DEPTODESCRIPCION: TStringField
+      FieldName = 'DESCRIPCION'
+      Required = True
+      Size = 10
+    end
+    object DEPTODescEdif: TStringField
+      FieldKind = fkLookup
+      FieldName = 'DescEdif'
+      LookupDataSet = EDIF
+      LookupKeyFields = 'IDEDIFICIO'
+      LookupResultField = 'DESCRIPCION'
+      KeyFields = 'IDEDIFICIO'
+      Size = 50
+      Lookup = True
+    end
+    object DEPTODescCompleta: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'DescCompleta'
+      Size = 60
+      Calculated = True
+    end
+  end
+  object SERVEDIF: TTable
+    DatabaseName = 'ADB'
+    TableName = 'SERV_EDIF'
+    Left = 166
+    Top = 198
+    object SERVEDIFIDEDIFICIO: TIntegerField
+      FieldName = 'IDEDIFICIO'
+      Required = True
+    end
+    object SERVEDIFIDPAGO: TIntegerField
+      FieldName = 'IDPAGO'
+    end
+    object SERVEDIFNRO_ORDEN: TIntegerField
+      FieldName = 'NRO_ORDEN'
+    end
+    object SERVEDIFNRO_DECI: TIntegerField
+      FieldName = 'NRO_DECI'
+    end
+    object SERVEDIFFECHAPAGO: TDateField
+      FieldKind = fkLookup
+      FieldName = 'FECHAPAGO'
+      LookupDataSet = PAGO
+      LookupKeyFields = 'IDPAGO'
+      LookupResultField = 'FECHA_PAGO'
+      KeyFields = 'IDPAGO'
+      Lookup = True
+    end
+    object SERVEDIFIDSERV_EDIF: TIntegerField
+      FieldName = 'IDSERV_EDIF'
+      Required = True
+    end
+  end
+  object AuxTD: TTable
+    DatabaseName = 'ADB'
+    TableName = 'TRAB_DEPTO'
+    Left = 122
+    Top = 250
+    object AuxTDIDTRABAJO: TIntegerField
+      FieldName = 'IDTRABAJO'
+      Required = True
+    end
+    object AuxTDIDDEPARTAMENTO: TIntegerField
+      FieldName = 'IDDEPARTAMENTO'
+      Required = True
+    end
+    object AuxTDIdEdificio: TIntegerField
+      FieldKind = fkLookup
+      FieldName = 'IdEdificio'
+      LookupDataSet = DEPTO
+      LookupKeyFields = 'IDDEPARTAMENTO'
+      LookupResultField = 'IDEDIFICIO'
+      KeyFields = 'IDDEPARTAMENTO'
+      Lookup = True
+    end
+  end
+  object AuxTE: TTable
+    DatabaseName = 'ADB'
+    TableName = 'TRAB_EDIF'
+    Left = 74
+    Top = 248
+    object AuxTEIDTRABAJO: TIntegerField
+      FieldName = 'IDTRABAJO'
+      Required = True
+    end
+    object AuxTEIDEDIFICIO: TIntegerField
+      FieldName = 'IDEDIFICIO'
+      Required = True
+    end
+  end
+  object GASTOAD: TTable
+    DatabaseName = 'ADB'
+    TableName = 'GASTO_AD'
+    Left = 224
+    Top = 198
+    object GASTOADFECHA_PAGO: TDateTimeField
+      FieldName = 'FECHA_PAGO'
+      Required = True
+    end
+    object GASTOADIDGASTO_AD: TIntegerField
+      FieldName = 'IDGASTO_AD'
+      Required = True
+    end
+    object GASTOADIDPAGO: TIntegerField
+      FieldName = 'IDPAGO'
+    end
+    object GASTOADNRO_ORDEN: TIntegerField
+      FieldName = 'NRO_ORDEN'
+    end
+    object GASTOADNRO_DECI: TIntegerField
+      FieldName = 'NRO_DECI'
+    end
+  end
+  object qryTrab: TQuery
+    DatabaseName = 'ADB'
+    SQL.Strings = (
+      'SELECT TRABAJO.*, PAGO.FECHA_PAGO, PROVEEDOR.RAZON_SOCIAL'
+      'FROM TRABAJO, PAGO, PROVEEDOR'
+      'WHERE TRABAJO.IDPAGO = PAGO.IDPAGO AND '
+      'TRABAJO.IDPROVEEDOR = PROVEEDOR.IDPROVEEDOR'
+      'ORDER BY RAZON_SOCIAL')
+    Left = 18
+    Top = 294
+    object qryTrabIDTRABAJO: TIntegerField
+      FieldName = 'IDTRABAJO'
+      Origin = 'ADB.TRABAJO.IDTRABAJO'
+    end
+    object qryTrabFECHA_PAGO: TDateTimeField
+      FieldName = 'FECHA_PAGO'
+      Origin = 'ADB.PAGO.FECHA_PAGO'
+    end
+    object qryTrabRAZON_SOCIAL: TStringField
+      FieldName = 'RAZON_SOCIAL'
+      Origin = 'ADB.PROVEEDOR.RAZON_SOCIAL'
+      Size = 45
+    end
+  end
+  object Query: TQuery
+    DatabaseName = 'ADB'
+    Left = 18
+    Top = 248
+  end
+  object qryServ: TQuery
+    DatabaseName = 'ADB'
+    SQL.Strings = (
+      
+        'SELECT SERV_EDIF.*, PAGO.FECHA_PAGO AS FECHAPAGO, PROVEEDOR.RAZO' +
+        'N_SOCIAL'
+      'FROM SERV_EDIF, PAGO, PROVEEDOR'
+      'WHERE SERV_EDIF.IDPAGO = PAGO.IDPAGO AND '
+      'SERV_EDIF.IDPROVEEDOR = PROVEEDOR.IDPROVEEDOR'
+      'ORDER BY RAZON_SOCIAL')
+    Left = 68
+    Top = 294
+    object qryServIDSERV_EDIF: TIntegerField
+      FieldName = 'IDSERV_EDIF'
+      Origin = 'ADB.SERV_EDIF.IDSERV_EDIF'
+    end
+    object qryServRAZON_SOCIAL: TStringField
+      FieldName = 'RAZON_SOCIAL'
+      Origin = 'ADB.PROVEEDOR.RAZON_SOCIAL'
+      Size = 45
+    end
+    object qryServFECHAPAGO: TDateTimeField
+      FieldName = 'FECHAPAGO'
+      Origin = 'ADB.PAGO.FECHA_PAGO'
+    end
+  end
+  object qryGastoAd: TQuery
+    DatabaseName = 'ADB'
+    SQL.Strings = (
+      
+        'SELECT GASTO_AD.*, PAGO.FECHA_PAGO AS FECHAPAGO, PROVEEDOR.RAZON' +
+        '_SOCIAL'
+      'FROM GASTO_AD, PAGO, PROVEEDOR'
+      'WHERE GASTO_AD.IDPAGO = PAGO.IDPAGO AND '
+      'GASTO_AD.IDPROVEEDOR = PROVEEDOR.IDPROVEEDOR'
+      'ORDER BY RAZON_SOCIAL')
+    Left = 116
+    Top = 294
+    object qryGastoAdIDGASTO_AD: TIntegerField
+      FieldName = 'IDGASTO_AD'
+      Origin = 'ADB.GASTO_AD.IDGASTO_AD'
+    end
+    object qryGastoAdFECHAPAGO: TDateTimeField
+      FieldName = 'FECHAPAGO'
+      Origin = 'ADB.PAGO.FECHA_PAGO'
+    end
+  end
+  object qrySoloDeptos: TQuery
+    DatabaseName = 'ADB'
+    SQL.Strings = (
+      'SELECT * FROM DEPARTAMENTO'
+      'WHERE IdEdificio = :N'
+      'ORDER BY DESCRIPCION')
+    Left = 242
+    Top = 292
+    ParamData = <
+      item
+        DataType = ftInteger
+        Name = 'N'
+        ParamType = ptUnknown
+      end>
+    object qrySoloDeptosIDEDIFICIO: TIntegerField
+      FieldName = 'IDEDIFICIO'
+      Origin = 'DB.DEPARTAMENTO.IDEDIFICIO'
+    end
+    object qrySoloDeptosIDDEPARTAMENTO: TIntegerField
+      FieldName = 'IDDEPARTAMENTO'
+      Origin = 'DB.DEPARTAMENTO.IDDEPARTAMENTO'
+    end
+    object qrySoloDeptosDESCRIPCION: TStringField
+      FieldName = 'DESCRIPCION'
+      Origin = 'DB.DEPARTAMENTO.DESCRIPCION'
+      Size = 10
+    end
+  end
+  object qryEdificios: TQuery
+    DatabaseName = 'ADB'
+    SQL.Strings = (
+      'SELECT * FROM EDIFICIO'
+      'ORDER BY DESCRIPCION')
+    Left = 172
+    Top = 292
+    object qryEdificiosIDEDIFICIO: TIntegerField
+      FieldName = 'IDEDIFICIO'
+      Origin = 'ADB.EDIFICIO.IDEDIFICIO'
+    end
+    object qryEdificiosDESCRIPCION: TStringField
+      FieldName = 'DESCRIPCION'
+      Origin = 'ADB.EDIFICIO.DESCRIPCION'
+      Size = 50
+    end
+  end
+  object PAR: TTable
+    DatabaseName = 'ADB'
+    TableName = 'PARAMETRO'
+    Left = 274
+    Top = 54
+    object PARULTIMO_ANO_NROS_DECI: TIntegerField
+      FieldName = 'ULTIMO_ANO_NROS_DECI'
+    end
+    object PARDIVISOR_RENTA: TIntegerField
+      FieldName = 'DIVISOR_RENTA'
+    end
+  end
+  object DESC: TTable
+    DatabaseName = 'ADB'
+    TableName = 'DESCUENTO'
+    Left = 278
+    Top = 104
+    object DESCIDOCUPANTE: TIntegerField
+      FieldName = 'IDOCUPANTE'
+      Required = True
+    end
+    object DESCIDTIPODESCUENTO: TIntegerField
+      FieldName = 'IDTIPODESCUENTO'
+      Required = True
+    end
+    object DESCMES: TStringField
+      FieldName = 'MES'
+      Size = 10
+    end
+    object DESCANIO: TIntegerField
+      FieldName = 'ANIO'
+    end
+    object DESCMONTO: TFloatField
+      FieldName = 'MONTO'
+      currency = True
+    end
+  end
+  object COEF: TTable
+    DatabaseName = 'ADB'
+    TableName = 'COEFICIENTE_ALQUILER'
+    Left = 276
+    Top = 154
+    object COEFTIPO: TStringField
+      FieldName = 'TIPO'
+      Required = True
+      Size = 5
+    end
+    object COEFPERSONAL: TStringField
+      FieldName = 'PERSONAL'
+      Required = True
+      Size = 3
+    end
+    object COEFCANT_AMB: TIntegerField
+      FieldName = 'CANT_AMB'
+      Required = True
+    end
+    object COEFPORCENTAJE: TFloatField
+      FieldName = 'PORCENTAJE'
+      Required = True
+    end
+  end
+  object GRADO: TTable
+    DatabaseName = 'ADB'
+    TableName = 'GRADO'
+    Left = 278
+    Top = 198
+    object GRADOIDGRADO: TIntegerField
+      FieldName = 'IDGRADO'
+      Required = True
+    end
+    object GRADOTIEMPO_MINIMO: TIntegerField
+      FieldName = 'TIEMPO_MINIMO'
+    end
+    object GRADOCOD201: TFloatField
+      FieldName = 'COD201'
+    end
+    object GRADOCOD209: TFloatField
+      FieldName = 'COD209'
+    end
+  end
+  object qrySumaGA: TQuery
+    DatabaseName = 'ADB'
+    SQL.Strings = (
+      'SELECT SUM(COSTO) AS TOTAL FROM GASTO_AD'
+      'WHERE (FECHA_PAGO >= :F1) AND (FECHA_PAGO <= :F2)')
+    Left = 22
+    Top = 350
+    ParamData = <
+      item
+        DataType = ftDateTime
+        Name = 'F1'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftDateTime
+        Name = 'F2'
+        ParamType = ptUnknown
+      end>
+    object qrySumaGATOTAL: TFloatField
+      FieldName = 'TOTAL'
+      Origin = 'ADB.GASTO_AD.COSTO'
+    end
+  end
+  object qrySumaGF: TQuery
+    DatabaseName = 'ADB'
+    SQL.Strings = (
+      'SELECT SUM(COSTO) AS TOTAL FROM GASTO_FI'
+      'WHERE (FECHA_PAGO >= :F1) AND (FECHA_PAGO <= :F2)')
+    Left = 82
+    Top = 350
+    ParamData = <
+      item
+        DataType = ftDateTime
+        Name = 'F1'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftDateTime
+        Name = 'F2'
+        ParamType = ptUnknown
+      end>
+    object qrySumaGFTOTAL: TFloatField
+      FieldName = 'TOTAL'
+      Origin = 'ADB.GASTO_FI.COSTO'
+    end
+  end
+  object qryOcupMilitares: TQuery
+    DatabaseName = 'ADB'
+    SQL.Strings = (
+      'SELECT * FROM VW_OCUP_MIL_ACTUALES')
+    Left = 150
+    Top = 350
+    object qryOcupMilitaresIDPERSONA: TIntegerField
+      FieldName = 'IDPERSONA'
+      Origin = 'ADB.VW_OCUP_MIL_ACTUALES.IDPERSONA'
+    end
+    object qryOcupMilitaresTIPO: TStringField
+      FieldName = 'TIPO'
+      Origin = 'ADB.VW_OCUP_MIL_ACTUALES.TIPO'
+      Size = 5
+    end
+    object qryOcupMilitaresCANTAMB: TIntegerField
+      FieldName = 'CANTAMB'
+      Origin = 'ADB.VW_OCUP_MIL_ACTUALES.CANTAMB'
+    end
+    object qryOcupMilitaresMATRICULA: TStringField
+      FieldName = 'MATRICULA'
+      Origin = 'ADB.VW_OCUP_MIL_ACTUALES.MATRICULA'
+      Size = 8
+    end
+    object qryOcupMilitaresIDGRADO: TIntegerField
+      FieldName = 'IDGRADO'
+      Origin = 'ADB.VW_OCUP_MIL_ACTUALES.IDGRADO'
+    end
+    object qryOcupMilitaresANTGRADO: TIntegerField
+      FieldName = 'ANTGRADO'
+      Origin = 'ADB.VW_OCUP_MIL_ACTUALES.ANTGRADO'
+    end
+    object qryOcupMilitaresFECHA_INGRESO: TDateTimeField
+      FieldName = 'FECHA_INGRESO'
+      Origin = 'ADB.VW_OCUP_MIL_ACTUALES.IDPERSONA'
+    end
+    object qryOcupMilitaresRENTAPROPIA: TFloatField
+      FieldName = 'RENTAPROPIA'
+      Origin = 'ADB.VW_OCUP_MIL_ACTUALES.IDPERSONA'
+    end
+    object qryOcupMilitaresANT_SERVICIO: TIntegerField
+      FieldName = 'ANT_SERVICIO'
+      Origin = 'ADB.VW_OCUP_MIL_ACTUALES.ANT_SERVICIO'
+    end
+  end
+  object qryGastosMantXEdif: TQuery
+    DatabaseName = 'ADB'
+    SQL.Strings = (
+      'SELECT Edificio.IDEDIFICIO, SUM( Trabajo.COSTO ) AS MONTO'
+      'FROM EDIFICIO Edificio'
+      '   INNER JOIN TRAB_EDIF Trab_edif'
+      '   ON  (Trab_edif.IDEDIFICIO = Edificio.IDEDIFICIO)  '
+      '   INNER JOIN TRABAJO Trabajo'
+      '   ON  (Trab_edif.IDTRABAJO = Trabajo.IDTRABAJO)  '
+      
+        'WHERE  Edificio.ADMFISCAL = '#39'SI'#39' AND Trabajo.FECHA_FIN IS NOT NU' +
+        'LL'
+      ' AND TRABAJO.FECHA_FIN >= :F1 AND TRABAJO.FECHA_FIN <= :F2'
+      'GROUP BY Edificio.IDEDIFICIO')
+    Left = 38
+    Top = 408
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'F1'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'F2'
+        ParamType = ptUnknown
+      end>
+    object qryGastosMantXEdifIDEDIFICIO: TIntegerField
+      FieldName = 'IDEDIFICIO'
+    end
+    object qryGastosMantXEdifMONTO: TFloatField
+      FieldName = 'MONTO'
+    end
+  end
+  object qryGastosServXEdif: TQuery
+    DatabaseName = 'ADB'
+    SQL.Strings = (
+      
+        'SELECT Edificio.IDEDIFICIO, Servicio.PRORRATEO, SUM( Serv_edif.C' +
+        'OSTO ) MONTO'
+      'FROM EDIFICIO Edificio'
+      '   INNER JOIN SERV_EDIF Serv_edif'
+      '   ON  (Edificio.IDEDIFICIO = Serv_edif.IDEDIFICIO)  '
+      '   INNER JOIN SERVICIO Servicio'
+      '   ON  (Serv_edif.IDSERVICIO = Servicio.IDSERVICIO)  '
+      
+        'WHERE  Edificio.ADMFISCAL = '#39'SI'#39' AND SERV_EDIF.FECHA_PAGO >= :F1' +
+        ' AND '
+      'SERV_EDIF.FECHA_PAGO <= :F2'
+      'GROUP BY Edificio.IDEDIFICIO, Servicio.PRORRATEO')
+    Left = 146
+    Top = 408
+    ParamData = <
+      item
+        DataType = ftDate
+        Name = 'F1'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftDate
+        Name = 'F2'
+        ParamType = ptUnknown
+      end>
+    object qryGastosServXEdifIDEDIFICIO: TIntegerField
+      FieldName = 'IDEDIFICIO'
+    end
+    object qryGastosServXEdifPRORRATEO: TIntegerField
+      FieldName = 'PRORRATEO'
+    end
+    object qryGastosServXEdifMONTO: TFloatField
+      FieldName = 'MONTO'
+    end
+  end
+  object qryGastosMantXDepto: TQuery
+    DatabaseName = 'ADB'
+    SQL.Strings = (
+      
+        'SELECT Departamento.IDDEPARTAMENTO, Trabajo.IMPUTACION, SUM( Tra' +
+        'bajo.COSTO ) MONTO'
+      'FROM DEPARTAMENTO Departamento'
+      '   INNER JOIN TRAB_DEPTO Trab_depto'
+      
+        '   ON  (Trab_depto.IDDEPARTAMENTO = Departamento.IDDEPARTAMENTO)' +
+        '  '
+      '   INNER JOIN TRABAJO Trabajo'
+      '   ON  (Trab_depto.IDTRABAJO = Trabajo.IDTRABAJO)  '
+      'WHERE  Trabajo.FECHA_FIN IS NOT NULL '
+      'AND TRABAJO.FECHA_FIN >= :F1 AND TRABAJO.FECHA_FIN <= :F2'
+      'GROUP BY Departamento.IDDEPARTAMENTO, Trabajo.IMPUTACION')
+    Left = 252
+    Top = 408
+    ParamData = <
+      item
+        DataType = ftDate
+        Name = 'F1'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftDate
+        Name = 'F2'
+        ParamType = ptUnknown
+      end>
+    object qryGastosMantXDeptoIDDEPARTAMENTO: TIntegerField
+      FieldName = 'IDDEPARTAMENTO'
+    end
+    object qryGastosMantXDeptoIMPUTACION: TStringField
+      FieldName = 'IMPUTACION'
+      Size = 2
+    end
+    object qryGastosMantXDeptoMONTO: TFloatField
+      FieldName = 'MONTO'
+    end
+  end
+  object qryDeptosOcupados: TQuery
+    DatabaseName = 'ADB'
+    SQL.Strings = (
+      
+        'SELECT Departamento.IDDEPARTAMENTO, Departamento.IDEDIFICIO, Per' +
+        'sona.IDPERSONA, Persona.TIPO, Departamento.COEFICIENTE'
+      'FROM DEPARTAMENTO Departamento'
+      '   INNER JOIN OCUPACION Ocupacion'
+      
+        '   ON  (Ocupacion.IDDEPARTAMENTO = Departamento.IDDEPARTAMENTO) ' +
+        ' '
+      '   INNER JOIN PERSONA Persona'
+      '   ON  (Ocupacion.IDOCUPANTE = Persona.IDPERSONA)  '
+      'WHERE  Ocupacion.FECHARETIRO IS NULL ')
+    Left = 366
+    Top = 408
+    object qryDeptosOcupadosIDDEPARTAMENTO: TIntegerField
+      FieldName = 'IDDEPARTAMENTO'
+    end
+    object qryDeptosOcupadosIDEDIFICIO: TIntegerField
+      FieldName = 'IDEDIFICIO'
+    end
+    object qryDeptosOcupadosIDPERSONA: TIntegerField
+      FieldName = 'IDPERSONA'
+    end
+    object qryDeptosOcupadosTIPO: TStringField
+      FieldName = 'TIPO'
+      Size = 12
+    end
+    object qryDeptosOcupadosCOEFICIENTE: TFloatField
+      FieldName = 'COEFICIENTE'
+    end
+  end
+  object qryCantViviendas: TQuery
+    DatabaseName = 'ADB'
+    SQL.Strings = (
+      'SELECT COUNT( Departamento.IDDEPARTAMENTO ) TOTAL_VIVIENDAS'
+      'FROM DEPARTAMENTO Departamento'
+      '   INNER JOIN EDIFICIO Edificio'
+      '   ON  (Departamento.IDEDIFICIO = Edificio.IDEDIFICIO)  '
+      'WHERE  Edificio.ADMFISCAL = '#39'SI'#39' ')
+    Left = 246
+    Top = 350
+    object qryCantViviendasTOTAL_VIVIENDAS: TIntegerField
+      FieldName = 'TOTAL_VIVIENDAS'
+      Origin = 'ADB.DEPARTAMENTO.IDDEPARTAMENTO'
+    end
+  end
+  object Q: TQuery
+    DatabaseName = 'ADB'
+    Left = 436
+    Top = 20
+  end
+end

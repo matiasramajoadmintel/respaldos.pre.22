@@ -1,0 +1,19 @@
+DESCUENTOS POR ALQUILER
+
+Los descuentos por alquiler se calculan en función del tipo de vivienda
+(departamento o casa), el tipo de ocupante (personal militar, personal civil o
+particular) y la cantidad de dormitorios de cada vivienda.
+
+Para el personal militar existe una tabla en el reglamento de viviendas fiscales
+de la Armada en la cual se muestran que coeficientes (porcentajes) corresponden
+para cada tipo de vivienda y cantidades de dormitorios. Por ejemplo para un
+departamento con 4 dormitorios el coeficiente es 7,00; esto quiere decir que el
+personal militar que lo ocupe debe abonar en concepto de alquiler el 7,0 % de su
+sueldo correspondiente a la suma de los códigos 201, 202, 209 y 218.
+
+Para el personal civil existe una tabla en el reglamento de viviendas fiscales
+de la Armada en la cual se muestran que coeficientes (porcentajes) corresponden
+para cada tipo de vivienda y cantidades de dormitorios. Por ejemplo para un
+departamento con 4 dormitorios el coeficiente es 7,00; esto quiere decir que el
+personal civil que lo ocupe debe abonar en concepto de alquiler el 7,0 % de su
+sueldo correspondiente a la suma de los códigos que sufren descuento jubilatorio.

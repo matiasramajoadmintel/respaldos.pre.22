@@ -1,0 +1,489 @@
+object frmEstIngresos: TfrmEstIngresos
+  Left = 1006
+  Top = 246
+  Width = 697
+  Height = 484
+  Caption = 'Estad'#237'scas de ingresos'
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poDefault
+  OnCreate = FormCreate
+  OnDeactivate = FormDestroy
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Panel1: TPanel
+    Left = 0
+    Top = 416
+    Width = 681
+    Height = 30
+    Align = alBottom
+    TabOrder = 0
+    object Panel2: TPanel
+      Left = 594
+      Top = 1
+      Width = 86
+      Height = 28
+      Align = alRight
+      BevelOuter = bvNone
+      TabOrder = 0
+      object BitBtn1: TBitBtn
+        Left = 10
+        Top = 1
+        Width = 75
+        Height = 25
+        Caption = '&Cerrar'
+        TabOrder = 0
+        Kind = bkClose
+      end
+    end
+  end
+  object PageControl1: TPageControl
+    Left = 0
+    Top = 0
+    Width = 681
+    Height = 416
+    ActivePage = TabSheet2
+    Align = alClient
+    TabOrder = 1
+    object tsTabla: TTabSheet
+      Caption = 'Tabla'
+      object DecisionPivot1: TDecisionPivot
+        Left = 0
+        Top = 0
+        Width = 673
+        Height = 388
+        ButtonAutoSize = True
+        GroupLayout = xtHorizontal
+        Groups = [xtRows, xtColumns, xtSummaries]
+        ButtonSpacing = 0
+        ButtonWidth = 64
+        ButtonHeight = 24
+        GroupSpacing = 10
+        BorderWidth = 0
+        BorderStyle = bsNone
+        Align = alClient
+        BevelOuter = bvNone
+        TabOrder = 0
+        object Label4: TLabel
+          Left = 4
+          Top = 5
+          Width = 57
+          Height = 13
+          Caption = 'Fecha inicio'
+        end
+        object Label5: TLabel
+          Left = 168
+          Top = 5
+          Width = 52
+          Height = 13
+          Caption = 'Fecha final'
+        end
+        object DecisionGrid1: TDecisionGrid
+          Left = 0
+          Top = 24
+          Width = 673
+          Height = 364
+          DefaultColWidth = 100
+          DefaultRowHeight = 21
+          CaptionColor = clActiveCaption
+          CaptionFont.Charset = DEFAULT_CHARSET
+          CaptionFont.Color = clCaptionText
+          CaptionFont.Height = -11
+          CaptionFont.Name = 'MS Sans Serif'
+          CaptionFont.Style = []
+          DataColor = clInfoBk
+          DataSumColor = clNone
+          DataFont.Charset = DEFAULT_CHARSET
+          DataFont.Color = clWindowText
+          DataFont.Height = -11
+          DataFont.Name = 'MS Sans Serif'
+          DataFont.Style = []
+          LabelFont.Charset = DEFAULT_CHARSET
+          LabelFont.Color = clWindowText
+          LabelFont.Height = -11
+          LabelFont.Name = 'MS Sans Serif'
+          LabelFont.Style = []
+          LabelColor = clBtnFace
+          LabelSumColor = clInactiveCaption
+          DecisionSource = DecisionSource1
+          Dimensions = <
+            item
+              FieldName = 'FECHA'
+              Color = clNone
+              Alignment = taCenter
+              Subtotals = False
+            end
+            item
+              FieldName = 'CONCEPTO'
+              Color = clNone
+              Alignment = taCenter
+              Subtotals = False
+            end
+            item
+              DisplayName = 'TIPO PAGO'
+              FieldName = 'TIPO_PAGO'
+              Color = clNone
+              Alignment = taCenter
+              Subtotals = False
+            end
+            item
+              DisplayName = 'Suma'
+              FieldName = 'SUM'
+              Color = clNone
+              Alignment = taRightJustify
+              Subtotals = False
+            end>
+          Totals = False
+          ShowCubeEditor = False
+          Align = alClient
+          Color = clBtnFace
+          Ctl3D = True
+          DefaultDrawing = False
+          GridLineWidth = 1
+          GridLineColor = clWindowText
+          ParentCtl3D = False
+          TabOrder = 0
+        end
+        object dtpIni: TDateTimePicker
+          Left = 64
+          Top = 0
+          Width = 100
+          Height = 21
+          Date = 37792.811875995400000000
+          Time = 37792.811875995400000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 1
+          OnCloseUp = ComboClick
+        end
+        object dtpFin: TDateTimePicker
+          Left = 224
+          Top = 0
+          Width = 100
+          Height = 21
+          Date = 37792.811887349500000000
+          Time = 37792.811887349500000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 2
+          OnCloseUp = ComboClick
+        end
+      end
+    end
+    object TabSheet2: TTabSheet
+      Caption = 'Barras'
+      ImageIndex = 1
+      object DecisionGraph1: TDecisionGraph
+        Left = 0
+        Top = 0
+        Width = 673
+        Height = 388
+        DecisionSource = DecisionSource1
+        Title.Text.Strings = (
+          '')
+        Align = alClient
+        BevelOuter = bvNone
+        TabOrder = 0
+        object Series1: TBarSeries
+          Active = False
+          Marks.ArrowLength = 20
+          Marks.Visible = False
+          SeriesColor = clRed
+          Title = 'Template: FECHA'
+          XValues.DateTime = False
+          XValues.Name = 'X'
+          XValues.Multiplier = 1.000000000000000000
+          XValues.Order = loAscending
+          YValues.DateTime = False
+          YValues.Name = 'Bar'
+          YValues.Multiplier = 1.000000000000000000
+          YValues.Order = loNone
+          Identifier = 'Template: FECHA'
+          Style = 61
+        end
+        object Series2: TBarSeries
+          Active = False
+          Marks.ArrowLength = 20
+          Marks.Visible = False
+          SeriesColor = clRed
+          Title = 'Template: CONCEPTO'
+          XValues.DateTime = False
+          XValues.Name = 'X'
+          XValues.Multiplier = 1.000000000000000000
+          XValues.Order = loAscending
+          YValues.DateTime = False
+          YValues.Name = 'Bar'
+          YValues.Multiplier = 1.000000000000000000
+          YValues.Order = loNone
+          Identifier = 'Template: CONCEPTO'
+          Style = 61
+        end
+        object Series3: TBarSeries
+          Active = False
+          Marks.ArrowLength = 20
+          Marks.Visible = False
+          SeriesColor = clRed
+          Title = 'Template: TIPO_PAGO'
+          XValues.DateTime = False
+          XValues.Name = 'X'
+          XValues.Multiplier = 1.000000000000000000
+          XValues.Order = loAscending
+          YValues.DateTime = False
+          YValues.Name = 'Bar'
+          YValues.Multiplier = 1.000000000000000000
+          YValues.Order = loNone
+          Identifier = 'Template: TIPO_PAGO'
+          Style = 61
+        end
+      end
+    end
+    object TabSheet3: TTabSheet
+      Caption = 'Torta'
+      ImageIndex = 2
+      object DecisionGraph2: TDecisionGraph
+        Left = 0
+        Top = 0
+        Width = 681
+        Height = 399
+        DecisionSource = DecisionSource1
+        Title.Text.Strings = (
+          '')
+        Align = alClient
+        BevelOuter = bvNone
+        TabOrder = 0
+        object Series4: TPieSeries
+          Active = False
+          Marks.ArrowLength = 20
+          Marks.Visible = False
+          SeriesColor = clRed
+          Title = 'Template: FECHA'
+          OtherSlice.Text = 'Other'
+          PieValues.DateTime = False
+          PieValues.Name = 'Pie'
+          PieValues.Multiplier = 1.000000000000000000
+          PieValues.Order = loNone
+          Identifier = 'Template: FECHA'
+          Style = 61
+        end
+        object Series5: TPieSeries
+          Active = False
+          Marks.ArrowLength = 20
+          Marks.Visible = False
+          SeriesColor = clRed
+          Title = 'Template: CONCEPTO'
+          OtherSlice.Text = 'Other'
+          PieValues.DateTime = False
+          PieValues.Name = 'Pie'
+          PieValues.Multiplier = 1.000000000000000000
+          PieValues.Order = loNone
+          Identifier = 'Template: CONCEPTO'
+          Style = 61
+        end
+        object Series6: TPieSeries
+          Active = False
+          Marks.ArrowLength = 20
+          Marks.Visible = False
+          SeriesColor = clRed
+          Title = 'Template: TIPO_PAGO'
+          OtherSlice.Text = 'Other'
+          PieValues.DateTime = False
+          PieValues.Name = 'Pie'
+          PieValues.Multiplier = 1.000000000000000000
+          PieValues.Order = loNone
+          Identifier = 'Template: TIPO_PAGO'
+          Style = 61
+        end
+      end
+    end
+    object TabSheet4: TTabSheet
+      Caption = 'Lineas'
+      ImageIndex = 3
+      object DecisionGraph3: TDecisionGraph
+        Left = 0
+        Top = 0
+        Width = 673
+        Height = 388
+        DecisionSource = DecisionSource1
+        Title.Text.Strings = (
+          '')
+        View3D = False
+        Align = alClient
+        BevelOuter = bvNone
+        TabOrder = 0
+        object Series7: TLineSeries
+          Active = False
+          Marks.ArrowLength = 20
+          Marks.Visible = False
+          SeriesColor = clRed
+          Title = 'Template: FECHA'
+          Pointer.InflateMargins = True
+          Pointer.Style = psRectangle
+          Pointer.Visible = False
+          XValues.DateTime = False
+          XValues.Name = 'X'
+          XValues.Multiplier = 1.000000000000000000
+          XValues.Order = loAscending
+          YValues.DateTime = False
+          YValues.Name = 'Y'
+          YValues.Multiplier = 1.000000000000000000
+          YValues.Order = loNone
+          Identifier = 'Template: FECHA'
+          Style = 61
+        end
+        object Series8: TLineSeries
+          Active = False
+          Marks.ArrowLength = 20
+          Marks.Visible = False
+          SeriesColor = clRed
+          Title = 'Template: CONCEPTO'
+          Pointer.InflateMargins = True
+          Pointer.Style = psRectangle
+          Pointer.Visible = False
+          XValues.DateTime = False
+          XValues.Name = 'X'
+          XValues.Multiplier = 1.000000000000000000
+          XValues.Order = loAscending
+          YValues.DateTime = False
+          YValues.Name = 'Y'
+          YValues.Multiplier = 1.000000000000000000
+          YValues.Order = loNone
+          Identifier = 'Template: CONCEPTO'
+          Style = 61
+        end
+        object Series9: TLineSeries
+          Active = False
+          Marks.ArrowLength = 20
+          Marks.Visible = False
+          SeriesColor = clRed
+          Title = 'Template: TIPO_PAGO'
+          Pointer.InflateMargins = True
+          Pointer.Style = psRectangle
+          Pointer.Visible = False
+          XValues.DateTime = False
+          XValues.Name = 'X'
+          XValues.Multiplier = 1.000000000000000000
+          XValues.Order = loAscending
+          YValues.DateTime = False
+          YValues.Name = 'Y'
+          YValues.Multiplier = 1.000000000000000000
+          YValues.Order = loNone
+          Identifier = 'Template: TIPO_PAGO'
+          Style = 61
+        end
+      end
+    end
+  end
+  object DecisionSource1: TDecisionSource
+    DecisionCube = DecisionCube1
+    ControlType = xtCheck
+    SparseRows = False
+    SparseCols = False
+    Left = 568
+    Top = 172
+    DimensionCount = 3
+    SummaryCount = 1
+    CurrentSummary = 0
+    SparseRows = False
+    SparseCols = False
+    DimensionInfo = (
+      2
+      0
+      1
+      0
+      0
+      1
+      0
+      1
+      0
+      0
+      1
+      1
+      1
+      1
+      0)
+  end
+  object DecisionQuery1: TDecisionQuery
+    DatabaseName = 'ADB'
+    SQL.Strings = (
+      
+        'SELECT FECHA, CONCEPTO, TIPO_PAGO, SUM( IMPORTE_MANT+ IMPORTE_SE' +
+        'RV )'
+      'FROM VW_INGRESOS'
+      'GROUP BY FECHA, CONCEPTO, TIPO_PAGO')
+    Left = 542
+    Top = 144
+  end
+  object DecisionCube1: TDecisionCube
+    DataSet = DecisionQuery1
+    DimensionMap = <
+      item
+        ActiveFlag = diAsNeeded
+        FieldType = ftDateTime
+        Fieldname = 'FECHA'
+        BaseName = 'VW_INGRESOS.FECHA'
+        Name = 'FECHA'
+        DerivedFrom = -1
+        DimensionType = dimDimension
+        BinType = binMonth
+        ValueCount = 10
+        Active = True
+        StartValue = 37622.000000000000000000
+      end
+      item
+        ActiveFlag = diAsNeeded
+        FieldType = ftString
+        Fieldname = 'CONCEPTO'
+        BaseName = 'VW_INGRESOS.CONCEPTO'
+        Name = 'CONCEPTO'
+        DerivedFrom = -1
+        DimensionType = dimDimension
+        BinType = binNone
+        ValueCount = 5
+        Active = True
+      end
+      item
+        ActiveFlag = diAsNeeded
+        FieldType = ftString
+        Fieldname = 'TIPO_PAGO'
+        BaseName = 'VW_INGRESOS.TIPO_PAGO'
+        Name = 'TIPO_PAGO'
+        DerivedFrom = -1
+        DimensionType = dimDimension
+        BinType = binNone
+        ValueCount = 2
+        Active = True
+      end
+      item
+        ActiveFlag = diAsNeeded
+        Format = '#,0.00'
+        FieldType = ftFloat
+        Fieldname = 'SUM'
+        BaseName = ' (IMPORTE_MANT + IMPORTE_SERV) '
+        Name = 'SUM'
+        DerivedFrom = -1
+        DimensionType = dimSum
+        BinType = binNone
+        ValueCount = -1
+        Active = True
+      end>
+    ShowProgressDialog = True
+    MaxDimensions = 5
+    MaxSummaries = 10
+    MaxCells = 0
+    Left = 570
+    Top = 142
+  end
+end

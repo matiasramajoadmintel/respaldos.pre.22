@@ -1,0 +1,238 @@
+unit Personal;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, Buttons, ComCtrls, ExtCtrls, DBCtrls, Mask, DB,
+  DBTables, DateUtils;
+
+type
+  TfrmPersonal = class(TForm)
+    Panel2: TPanel;
+    btnAceptar: TBitBtn;
+    btnCancelar: TBitBtn;
+    pnlDatos: TPanel;
+    PERS: TTable;
+    PERSIDPERSONAL: TIntegerField;
+    PERSNOMBRE: TStringField;
+    PERSAPELLIDO: TStringField;
+    PERSMATRICULA: TStringField;
+    GR: TTable;
+    GRIDGRADO: TIntegerField;
+    GRDESCRIPCION: TStringField;
+    Label1: TLabel;
+    edtNombre: TDBEdit;
+    DataSource1: TDataSource;
+    Label2: TLabel;
+    edtApellido: TDBEdit;
+    lalmat: TLabel;
+    edtMatricula: TDBEdit;
+    Label4: TLabel;
+    cmbGrado: TDBLookupComboBox;
+    GRORDEN: TIntegerField;
+    PERSIDGRADO: TIntegerField;
+    PERSGrado: TStringField;
+    procedure Entrada_A_Campo(Sender: TObject);
+    procedure Salida_de_Campo(Sender: TObject);
+    procedure Teclitas(Sender:TObject; var Key:Word; Shift:TShiftState);
+    procedure PressEnter(Sender: TObject; var Key: Char);
+    procedure btnAceptarClick(Sender: TObject);
+    procedure btnCancelarClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure PERSNewRecord(DataSet: TDataSet);
+
+  private
+    Teclas: Byte;
+    gId: Longword;
+    gDECIIni, gOrdenIni: Integer;
+    procedure PrepararFormulario(const Modo: Byte; const Id: Longword);
+    function DatosValidos: Boolean;
+    function Guardar: Boolean;
+
+  public
+    function Agregar(var Id: Longword): Boolean;
+    function Eliminar(const Id: Longword): Boolean;
+    function Modificar(const Id: Longword): Boolean;
+
+  end;
+
+var
+  frmPersonal: TfrmPersonal;
+
+implementation
+
+uses Comunes, Util, PoolDatos, ElecEnt, ElecProv, StoreProcs;
+
+{$R *.dfm}
+
+{*******************************************************************************
+                                PROCEDIMIENTOS PUBLICOS
+*******************************************************************************}
+
+function TfrmPersonal.Agregar(var Id: Longword): Boolean;
+begin
+  PrepararFormulario(0,0);
+
+  ShowModal;
+
+  Result := (ModalResult = mrOk);
+  if Result then Id := gId;
+end;
+
+function TfrmPersonal.Eliminar(const Id: Longword): Boolean;
+begin
+  Result := False;
+
+  if Confirmar('¿Esta seguro de eliminar el ìtem elegido?') then
+  begin
+    if not Existe(PERS,'IDPERSONAL',Id) then
+    begin
+      MsjError('No se puedo eliminar el dato. No se encontró el registro.');
+      Exit;
+    end;
+    try
+      PERS.Delete;
+      except on EDatabaseError do
+      begin
+        MsjError('Se produjo un error al intentar eliminar. Compruebe que el '+
+                 'dato que desea eliminar no esté siendo usado.');
+        Exit;
+      end;
+    end;
+    Result := True;
+  end;
+end;
+
+function TfrmPersonal.Modificar(const Id: Longword): Boolean;
+begin
+  PrepararFormulario(2,Id);
+
+  ShowModal;
+
+  Result := (ModalResult = mrOk);
+end;
+
+{*******************************************************************************
+                                PROCEDIMIENTOS PRIVADOS
+*******************************************************************************}
+
+procedure TfrmPersonal.PrepararFormulario(const Modo: Byte; const Id: Longword);
+var
+  F, S, P: String;
+begin
+  if Modo = 2 then //Modificación
+  begin
+    Caption := 'Modificar datos de personal';
+    Existe(PERS,'IDPERSONAL',Id);
+    PERS.Edit;
+  end
+  else if Modo = 0 then //Alta
+  begin
+    Caption := 'Agregar datos de personal';
+    PERS.Open;
+    PERS.Append;
+  end;
+end;
+
+function TfrmPersonal.DatosValidos: Boolean;
+begin
+  Result := False;
+
+  if (edtNombre.Text = '') or (edtApellido.Text = '') or
+     (edtMatricula.Text = '') or (cmbGrado.Text = '') then
+  begin
+    MsjError('Los datos deben estar completos');
+    Exit;
+  end;
+
+  Result := True;
+end;
+
+function TfrmPersonal.Guardar: Boolean;
+begin
+  Result := False;
+
+  if Editando(PERS) then
+    try
+      PERS.Post;
+
+      except on EDatabaseError do
+      begin
+        MsjError('Se produjo un error al intentar actualizar. Compruebe que los '+
+                 'datos están completos.');
+        Exit;
+      end;
+    end;
+
+  Result := True;
+end;
+
+{*******************************************************************************
+                                     EVENTOS
+*******************************************************************************}
+
+procedure TfrmPersonal.Entrada_A_Campo(Sender: TObject);
+begin
+  if Sender = cmbGrado then
+    GR.IndexFieldNames := 'ORDEN';
+
+  EntradaACampo(self,Sender);
+end;
+
+procedure TfrmPersonal.Salida_de_Campo(Sender: TObject);
+begin
+  if Sender = cmbGrado then
+    GR.IndexFieldNames := '';
+
+  SalidaDeCampo(self,Sender);
+end;
+
+procedure TfrmPersonal.Teclitas(Sender: TObject; var Key: Word;Shift: TShiftState);
+begin
+  if Shift = [] then teclas:=0;
+  if Shift = [ssShift] then  teclas:=1;
+end;
+
+procedure TfrmPersonal.PressEnter(Sender: TObject; var Key: Char);
+begin
+  if key = #13 then
+  begin
+    key:=chr(0);
+    Perform(WM_NEXTDLGCTL,Teclas,0);
+  end;
+
+  if Key = #27 then btnCancelarClick(nil);
+end;
+
+procedure TfrmPersonal.btnAceptarClick(Sender: TObject);
+begin
+  if not DatosValidos then Exit;
+  if not Guardar then Exit;
+  ModalResult := mrOk;
+end;
+
+procedure TfrmPersonal.btnCancelarClick(Sender: TObject);
+begin
+//  if not Confirmar('¿Está seguro de cancelar la operación?') then Exit;
+  ModalResult := mrCancel;
+end;
+
+procedure TfrmPersonal.FormCreate(Sender: TObject);
+begin
+  RecuperarEstadoVentana(Name,Self);
+end;
+
+procedure TfrmPersonal.FormDestroy(Sender: TObject);
+begin
+  GuardarEstadoVentana(Name,Self);
+end;
+
+procedure TfrmPersonal.PERSNewRecord(DataSet: TDataSet);
+begin
+  gId := dmStoreProc.getId('IDPERSONAL') + 1;
+  PERSIDPERSONAL.Value := gId;
+end;
+
+end.

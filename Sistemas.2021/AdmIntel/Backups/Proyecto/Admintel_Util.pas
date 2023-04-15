@@ -1,0 +1,74 @@
+unit Admintel_Util;
+
+interface
+
+uses DB, Classes, DBTables;
+
+Type
+  TTipoDoc = (DNI, LE, LC, CI, PAS, TDOC_NINGUNO);
+  TTipoPersona = (OCUP_MIL, OCUP_CIV, OCUP_PART, MIL_NO_OCUP, TPERS_NINGUNO);
+
+  function TipoDocToStr(T: TTipoDoc): String;
+  function StrToTipoDoc(S: String): TTipoDoc;
+  function StrToTipoPersona(S: String): TTipoPersona;
+  function MinDateIfNull(F: TDateTimeField): TDateTime;
+
+implementation
+
+uses SysUtils;
+
+function TipoDocToStr(T: TTipoDoc): String;
+begin
+  if T = DNI then
+    Result := 'DNI'
+  else if T = CI then
+    Result := 'CI'
+  else if T = LE then
+    Result := 'LE'
+  else if T = LC then
+    Result := 'LC'
+  else if T = PAS then
+    Result := 'PAS'
+  else
+    Result := '';
+end;
+
+function StrToTipoDoc(S: String): TTipoDoc;
+begin
+  if S = 'DNI' then
+    Result := DNI
+  else if S = 'CI' then
+    Result := CI
+  else if S = 'LE' then
+    Result := LE
+  else if S = 'LC' then
+    Result := LC
+  else if S = 'PAS' then
+    Result := PAS
+  else
+    Result := TDOC_NINGUNO;
+end;
+
+function StrToTipoPersona(S: String): TTipoPersona;
+begin
+  if S = 'OCUP_MIL' then
+    Result := OCUP_MIL
+  else if S = 'OCUP_CIV' then
+    Result := OCUP_CIV
+  else if S = 'OCUP_PART' then
+    Result := OCUP_PART
+  else if S = 'MIL_NO_OCUP' then
+    Result := MIL_NO_OCUP
+  else
+    Result := TPERS_NINGUNO;
+end;
+
+function MinDateIfNull(F: TDateTimeField): TDateTime;
+begin
+  if F.IsNull then
+    Result := MinDateTime
+  else
+    F.Value;
+end;
+
+end.

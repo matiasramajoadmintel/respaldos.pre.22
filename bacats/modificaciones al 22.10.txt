@@ -1,0 +1,10 @@
+Datos personas
+no se diferencian mayusculas de minisculas en la busqueda
+suma de codigos jubilatorio muestra 2 decimales 
+
+Ocupaciones
+cambio texto por apellido 
+
+coeficiente de renta chequeado
+alquiler chequeado
+
