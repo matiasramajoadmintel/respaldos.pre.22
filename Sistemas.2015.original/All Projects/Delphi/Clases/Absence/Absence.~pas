@@ -1,0 +1,40 @@
+unit Absence;
+
+interface
+
+uses Controls, Hour, Util;
+
+Type
+  TAbsence = Class
+
+    public
+      IdProfesional: Word;
+      Fecha: TDate;
+      HoraInicio, HoraFin: THour;
+      constructor Create(IdProf: Word; F: TDate; HI, HF: THour);
+
+    protected
+      {}
+
+    private
+      {}
+
+end;
+
+implementation
+
+constructor TAbsence.Create(IdProf: Word; F: TDate; HI, HF: THour);
+begin
+  if (HI.ToReal >= HF.ToReal) then
+  begin
+    MsjError('La hora de finalización no es mayor a la hora de inicio.');
+    Exit;
+  end;
+
+  IdProfesional := IdProf;
+  Fecha := F;
+  HoraInicio := HI;
+  HoraFin := HF;
+end;
+
+end.

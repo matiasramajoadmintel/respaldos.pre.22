@@ -1,0 +1,25 @@
+unit PropietarioClass;
+
+interface
+
+Type
+  TPropietario = Class
+
+  public
+    IdPropietario: Smallint;
+    Nombre: String;
+    constructor Create;
+
+  private
+   {}
+
+end;
+
+implementation
+
+constructor TPropietario.Create;
+begin
+  {}
+end;
+
+end.

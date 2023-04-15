@@ -1,0 +1,13 @@
+FORMA DE PRORRATEAR LOS GASTOS POR SERVICIOS
+
+Los gastos por servicios poseen tres formas de prorrateo.
+
+A) Entre todos los ocupantes en partes iguales
+
+B) Entre todas las viviendas ocupadas según su superficie
+
+C) Entre todas las viviendas (ocupadas y vacias) según su superficie
+
+En la base de datos, cada tipo de servicio tiene un campo que indica la forma de
+prorrateo con un valor entero entre 1 y 3 correspondiente a las formas A a C
+respectivamente.

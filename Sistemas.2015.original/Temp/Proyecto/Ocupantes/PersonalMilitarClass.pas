@@ -1,0 +1,48 @@
+unit PersonalMilitarClass;
+
+interface
+
+uses PersonaClass, GradoClass, EspecialidadClass, Comunes, PoolDatos, Admintel_Util;
+
+type
+  TPersonalMilitar = Class
+
+  public
+    Persona: TPersona;
+    Grado: TGrado;
+    Especialidad: TEspecialidad;
+    AntGrado: Byte;
+    AntServicio: Byte;
+    Destino: String;
+    Matricula: String;
+    RentaPropia: Currency;
+    FechaIngreso: TDateTime;
+
+    constructor Create(P: TPersona);
+
+  private
+    {}
+
+end;
+
+implementation
+
+uses SysUtils;
+
+constructor TPersonalMilitar.Create(P: TPersona);
+begin
+{  Persona := P;
+  if Existe(dmDatos.tblOcupanteMilitar_, 'IDPERSONA', P.IdPersona) then
+  begin
+    Grado := TGrado.Create(dmDatos.tblOcupanteMilitar_IDGRADO.Value);
+    Especialidad := TEspecialidad.Create(dmDatos.tblOcupanteMilitar_IDESPECIALIDAD.Value);
+    AntGrado := dmDatos.tblOcupanteMilitar_ANTGRADO.Value;
+    AntServicio := dmDatos.tblOcupanteMilitar_ANT_SERVICIO.Value;
+    Destino := dmDatos.tblOcupanteMilitar_DESTINO.Value;
+    Matricula := dmDatos.tblOcupanteMilitar_MATRICULA.Value;
+    RentaPropia := dmDatos.tblOcupanteMilitar_RENTAPROPIA.Value;
+    FechaIngreso := MinDateIfNull(dmDatos.tblOcupanteMilitar_FECHA_INGRESO);
+  end;}
+end;
+
+end.

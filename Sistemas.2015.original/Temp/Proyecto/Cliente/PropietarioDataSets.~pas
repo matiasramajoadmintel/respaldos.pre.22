@@ -1,0 +1,23 @@
+unit PropietarioDataSets;
+
+interface
+
+uses
+  SysUtils, Classes;
+
+type
+  TdmPropietario = class(TDataModule)
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  dmPropietario: TdmPropietario;
+
+implementation
+
+{$R *.dfm}
+
+end.

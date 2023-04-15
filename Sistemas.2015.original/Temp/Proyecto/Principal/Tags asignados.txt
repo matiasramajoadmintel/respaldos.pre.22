@@ -1,0 +1,1 @@
+100: btnAceptar, btnEliminar, btnModificar

@@ -1,0 +1,7 @@
+object dmPropietario: TdmPropietario
+  OldCreateOrder = False
+  Left = 192
+  Top = 103
+  Height = 150
+  Width = 215
+end

@@ -1,0 +1,41 @@
+unit ChequeDataSets;
+
+interface
+
+uses
+  SysUtils, Classes, DB, DBTables;
+
+type
+  TdmCheques = class(TDataModule)
+    CHEQUE: TTable;
+    CHEQUEIdCheque: TSmallintField;
+    CHEQUENumeroCheque: TStringField;
+    CHEQUEIdBanco: TSmallintField;
+    CHEQUEMonto: TFloatField;
+
+  private
+    { Private declarations }
+
+  public
+    procedure Add(Numero: String; Monto: Currency);
+
+  end;
+
+var
+  dmCheques: TdmCheques;
+
+implementation
+
+{$R *.dfm}
+
+procedure TdmCheques.Add(Numero: String; Monto: Currency);
+begin
+  CHEQUE.Open;
+  CHEQUE.Append;
+  CHEQUENumeroCheque.Text := Numero;
+  CHEQUEMonto.Value := Monto;
+  CHEQUE.Post;
+  CHEQUE.Close;
+end;
+
+end.

@@ -1,0 +1,124 @@
+unit Input;
+
+interface
+
+uses IngClave, IngClaves, IngFecha, IngFechas, IngTexto, IngMes, Ing2Textos,
+     Controls, IngDia;
+
+//Metodos de entrada de datos.
+     Function IngresarEntero(var Nro: Integer; const Tit: String): Boolean;
+     Function IngresarByte(var Nro: Byte; const Tit: String): Boolean;
+     Function IngresarReal(var Nro: Double; const Tit: String): Boolean;
+     Function IngresarEnteros(var Nro1,Nro2: Longint; const Tit: String): Boolean;
+     Function IngresarFecha(var Fecha: TDateTime): Boolean;
+     Function IngresarFechas(var FIni,FFin: TDateTime): Boolean;
+     Function IngresarTexto(var Texto: String; const Tit: String): Boolean; overload;
+     Function IngresarTexto(var Texto: String; const Tit: String; MaxLength: Integer): Boolean; overload;
+     Function Ingresar2Textos(var Texto1,Texto2: String; const Tit: String): Boolean;
+     Function IngresarAtributo(var Txt:String;var Tipo:Char):Boolean;
+     Function IngresarMes(var Mes, Anio: Word): Boolean;
+     Function IngresarDia(var Mes, Dia: Word): Boolean;
+
+
+implementation
+
+Function IngresarEntero(var Nro: Integer; const Tit: String): Boolean;
+begin
+  if frmIngClave = nil then frmIngClave := TfrmIngClave.Create(nil);
+  Result := frmIngClave.ObtenerEntero(Nro,Tit);
+  frmIngClave.Free;
+  frmIngClave := nil;
+end;
+
+Function IngresarByte(var Nro: Byte; const Tit: String): Boolean;
+begin
+  if frmIngClave = nil then frmIngClave := TfrmIngClave.Create(nil);
+  Result := frmIngClave.ObtenerByte(Nro,Tit);
+  frmIngClave.Free;
+  frmIngClave := nil;
+end;
+
+Function IngresarReal(var Nro: Double; const Tit: String): Boolean;
+begin
+  if frmIngClave = nil then frmIngClave := TfrmIngClave.Create(nil);
+  Result := frmIngClave.ObtenerReal(Nro,Tit);
+  frmIngClave.Free;
+  frmIngClave := nil;
+end;
+
+Function IngresarEnteros(var Nro1,Nro2: Longint; const Tit: String): Boolean;
+begin
+  if frmIngClaves = nil then frmIngClaves := TfrmIngClaves.Create(nil);
+  Result := frmIngClaves.ObtenerClaves(Nro1,Nro2,Tit);
+  frmIngClaves.Free;
+  frmIngClaves := nil;
+end;
+
+Function IngresarFecha(var Fecha: TDateTime): Boolean;
+begin
+  if frmFecha = nil then frmFecha := TfrmFecha.Create(nil);
+  Result := frmFecha.ObtenerFecha(Fecha);
+  frmFecha.Free;
+  frmFecha := nil;
+end;
+
+Function IngresarFechas(var FIni,FFin: TDateTime): Boolean;
+begin
+  if frmIngFechas = nil then frmIngFechas := TfrmIngFechas.Create(nil);
+  Result := frmIngFechas.ObtenerFechas(FIni,FFin);
+  frmIngFechas.Free;
+  frmIngFechas := nil;
+end;
+
+Function IngresarTexto(var Texto: String; const Tit: String): Boolean;
+begin
+  if frmIngTexto = nil then frmIngTexto := TfrmIngTexto.Create(nil);
+  Result := frmIngTexto.ObtenerTexto(Texto,Tit);
+  frmIngTexto.Free;
+  frmIngTexto := nil;
+end;
+
+Function IngresarTexto(var Texto: String; const Tit: String; MaxLength: Integer): Boolean;
+begin
+  if frmIngTexto = nil then frmIngTexto := TfrmIngTexto.Create(nil);
+  frmIngTexto.edtCod.MaxLength := MaxLength;
+  Result := frmIngTexto.ObtenerTexto(Texto,Tit);
+  frmIngTexto.Free;
+  frmIngTexto := nil;
+end;
+
+Function Ingresar2Textos(var Texto1,Texto2: String; const Tit: String): Boolean;
+begin
+  with TfrmIng2Textos.Create(nil) do
+  begin
+    Result := ObtenerTexto(Texto1,Texto2,Tit);
+    Release;
+  end;
+end;
+
+Function IngresarAtributo(var Txt:String;var Tipo:Char):Boolean;
+begin
+{  with TfrmIngAtrib.Create(nil) do
+  begin
+    Result := ObtenerTexto(Txt,Tipo);
+    Release;
+  end;}
+end;
+
+Function IngresarMes(var Mes, Anio: Word): Boolean;
+begin
+  if frmIngMes = nil then frmIngMes := TfrmIngMes.Create(nil);
+  Result := frmIngMes.ObtenerMes(Mes, Anio);
+  frmIngMes.Free;
+  frmIngMes := nil;
+end;
+
+Function IngresarDia(var Mes, Dia: Word): Boolean;
+begin
+  if frmIngDia = nil then frmIngDia := TfrmIngDia.Create(nil);
+  Result := frmIngDia.ObtenerDia(Mes, Dia);
+  frmIngDia.Free;
+  frmIngDia := nil;
+end;
+
+end.

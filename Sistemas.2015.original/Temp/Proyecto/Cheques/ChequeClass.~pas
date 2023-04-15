@@ -1,0 +1,27 @@
+unit ChequeClass;
+
+interface
+
+Type
+  TCheque = Class
+
+  public
+    IdCheque: Smallint;
+    Numero: String;
+//    Banco: TBanco;
+    Monto: Currency;
+    constructor Create;
+
+  private
+  {}
+
+end;
+
+implementation
+
+constructor TCheque.Create;
+begin
+  {}
+end;
+
+end.

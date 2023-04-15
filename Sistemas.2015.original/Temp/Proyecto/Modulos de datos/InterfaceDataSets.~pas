@@ -1,0 +1,256 @@
+unit InterfaceDataSets;
+
+interface
+
+uses
+  SysUtils, Classes, DB, DBTables;
+
+type
+  TdmInterface = class(TDataModule)
+    qryClientes: TQuery;
+    qryClientesIdCliente: TSmallintField;
+    qryClientesRazonSocial: TStringField;
+    qryClientesDomicilio: TStringField;
+    qryClientesEmail: TStringField;
+    qryObras: TQuery;
+    qryObrasIdObra: TSmallintField;
+    qryObrasTipoObra: TStringField;
+    qryObrasCliente: TStringField;
+    qryObrasNombre: TStringField;
+    qryObrasPresupuesto: TFloatField;
+    qryObrasHonorarios: TFloatField;
+    qryObrasSuperficie: TFloatField;
+    qryObrasFechaInicio: TDateTimeField;
+    qryObrasFechaFin: TDateTimeField;
+    qryObrasEstado: TStringField;
+    qryObrasPorcentaje: TIntegerField;
+    qryObrasMoneda: TStringField;
+    qryObrasPorc: TStringField;
+    qryObrasSup: TStringField;
+    qryProveedores: TQuery;
+    qryProveedoresIdProveedor: TSmallintField;
+    qryProveedoresRazonSocial: TStringField;
+    qryProveedoresDomicilio: TStringField;
+    qryProveedoresTelefono: TStringField;
+    qryProveedoresEmail: TStringField;
+    qryProveedoresCuit: TStringField;
+    qryEmpleados: TQuery;
+    qryEmpleadosIdEmpleado: TSmallintField;
+    qryEmpleadosApellido: TStringField;
+    qryEmpleadosNombres: TStringField;
+    qryEmpleadosDomicilio: TStringField;
+    qryEmpleadosEmail: TStringField;
+    qryClientesLocalidad: TStringField;
+    qryClientesCodigoPostal: TStringField;
+    qryClientesFechaNacimiento: TDateTimeField;
+    qryClientesDNI: TStringField;
+    qryClientesCUIT: TStringField;
+    qryProveedoresCodigo: TStringField;
+    qryObrasDescripcion: TStringField;
+    qryObrasCantidadAmbientes: TSmallintField;
+    qryObrasCantidadBanos: TSmallintField;
+    qryObrasTiempoEstimado: TSmallintField;
+    qryObrasFraccion: TStringField;
+    qryObrasParcela: TStringField;
+    qryObrasUnidadFuncional: TStringField;
+    qryObrasNroCuentaMuni: TStringField;
+    qryObrasNroPartidaMuni: TStringField;
+    qryObrasNroObra: TStringField;
+    qryProveedoresFax: TStringField;
+    qryProveedoresContacto: TStringField;
+    qryProveedoresTelefonoContacto: TStringField;
+    qryProveedoresLocalidad: TStringField;
+    qryProveedoresCodigoPostal: TStringField;
+    qryProveedoresPaginaWeb: TStringField;
+    qryProveedoresMovilContacto: TStringField;
+    qryProveedoresEmailContacto: TStringField;
+    qryFacturas: TQuery;
+    qryFacturasIdFactura: TSmallintField;
+    qryFacturasNumero: TStringField;
+    qryFacturasFecha: TDateTimeField;
+    qryFacturasProveedor: TStringField;
+    qryFacturasObra: TStringField;
+    qryFacturasPagado: TBooleanField;
+    qryFacturasTipo: TStringField;
+    qryFacturasMonto: TFloatField;
+    qryPedidos: TQuery;
+    qryPedidosIdPedido: TSmallintField;
+    qryPedidosNumero: TStringField;
+    qryPedidosObra: TStringField;
+    qryPedidosProveedor: TStringField;
+    qryPedidosIdSolicitante: TSmallintField;
+    qryPedidosIdProcesa: TSmallintField;
+    qryPedidosIdAutoriza: TSmallintField;
+    EMP: TTable;
+    EMPIdEmpleado: TSmallintField;
+    EMPApellido: TStringField;
+    EMPNombres: TStringField;
+    EMPNombreEmpleado: TStringField;
+    qryPedidosSolicitante: TStringField;
+    qryPedidosProcesa: TStringField;
+    qryPedidosAutoriza: TStringField;
+    qryRemitos: TQuery;
+    qryRemitosIdRemito: TSmallintField;
+    qryRemitosFecha: TDateTimeField;
+    qryRemitosProveedor: TStringField;
+    qryRemitosObra: TStringField;
+    qryRemitosRecibe: TStringField;
+    qryPedidosFecha: TDateTimeField;
+    qryRemitosNumero: TStringField;
+    qryFacturasSaldo: TCurrencyField;
+    qryCobros: TQuery;
+    qryPagos: TQuery;
+    qryCobrosIdMovimiento: TIntegerField;
+    qryCobrosObra: TStringField;
+    qryCobrosPropietario: TStringField;
+    qryCobrosFecha: TDateTimeField;
+    qryCobrosMonto: TFloatField;
+    qryCobrosMoneda: TStringField;
+    qryCobrosFormaPago: TStringField;
+    qryCobrosTipoMov: TStringField;
+    qryCobrosTipoCobro: TStringField;
+    qryCobrosIdObra: TSmallintField;
+    qryCobrosCheque: TStringField;
+    qryPagosProveedor: TStringField;
+    qryPagosFactura: TStringField;
+    qryPagosFecha: TDateTimeField;
+    qryPagosMonto: TFloatField;
+    qryPagosMoneda: TStringField;
+    qryPagosFormaPago: TStringField;
+    qryPagosCheque: TStringField;
+    procedure qryObrasCalcFields(DataSet: TDataSet);
+    procedure EMPCalcFields(DataSet: TDataSet);
+    procedure qryFacturasCalcFields(DataSet: TDataSet);
+
+  private
+    ActiveDataSet: TDataSet;
+    function GetField(DisplayName: String): TField;
+
+  public
+    function GetDataSet(DataSetName: String): TDataSet;
+    function GetActiveIdRecord: Word;
+    procedure ApplyFilter(ColumnName, Text: String);
+    procedure RemoveFilter;
+
+  end;
+
+var
+  dmInterface: TdmInterface;
+
+implementation
+
+uses FacturaDataSets;
+
+{$R *.dfm}
+
+//******************************************************************************
+//**************          PUBLICOS         *************************************
+//******************************************************************************
+
+function TdmInterface.GetDataSet(DataSetName: String): TDataSet;
+var
+  Query: TQuery;
+begin
+  if ActiveDataSet <> nil then
+    ActiveDataSet.Close;
+
+  if DataSetName = 'Propietarios' then
+    Query := qryClientes
+  else if DataSetName = 'Obras' then
+    Query := qryObras
+  else if DataSetName = 'Proveedores' then
+    Query := qryProveedores
+  else if DataSetName = 'Personal' then
+    Query := qryEmpleados
+  else if DataSetName = 'Facturas' then
+    Query := qryFacturas
+  else if DataSetName = 'Pedidos' then
+    Query := qryPedidos
+  else if DataSetName = 'Remitos' then
+    Query := qryRemitos
+ else if DataSetName = 'Cobros' then
+    Query := qryCobros
+  else if DataSetName = 'Pagos' then
+    Query := qryPagos
+  else
+    Query := nil;
+
+  if Query <> nil then
+  begin
+    Query.Open;
+    ActiveDataSet := Query;
+  end;
+
+  Result := Query;
+end;
+
+function TdmInterface.GetActiveIdRecord: Word;
+begin
+  Result := ActiveDataSet.Fields[0].Value;
+end;
+
+procedure TdmInterface.ApplyFilter(ColumnName, Text: String);
+var
+  Filter: String;
+  Campo: TField;
+begin
+  Campo := GetField(ColumnName);
+  if Campo is TStringField then
+    Filter := '(' + Campo.FieldName + '=' + #39 + Text + '*' + #39 + ') OR ' +
+              '(' + Campo.FieldName + '=' + #39 + '*' + Text + #39 + ')'
+  else
+    Filter := Campo.FieldName + '=' + Text;
+  ActiveDataSet.Filtered := False;
+  ActiveDataSet.Filter := Filter;
+  ActiveDataSet.Filtered := True;
+end;
+
+procedure TdmInterface.RemoveFilter;
+begin
+  ActiveDataSet.Filter := '';
+  ActiveDataSet.Filtered := False;
+end;
+
+//******************************************************************************
+//**************       PRIVADOS         ****************************************
+//******************************************************************************
+
+function TdmInterface.GetField(DisplayName: String): TField;
+var
+  i: Byte;
+  Encontrado: Boolean;
+begin
+  i := 0;
+  Encontrado := False;
+  while (i < ActiveDataSet.FieldCount) and (not Encontrado) do
+  begin
+    if ActiveDataSet.Fields[i].DisplayName = DisplayName then
+    begin
+      Result := ActiveDataSet.Fields[i];
+      Encontrado := True;
+    end;
+    i := i + 1;
+  end;
+end;
+
+//******************************************************************************
+//**************      EVENTOS         ******************************************
+//******************************************************************************
+
+procedure TdmInterface.qryObrasCalcFields(DataSet: TDataSet);
+begin
+  qryObrasPorc.Text := qryObrasPorcentaje.Text + ' %';
+  qryObrasSup.Text := qryObrasSuperficie.Text + ' m²';
+end;
+
+procedure TdmInterface.EMPCalcFields(DataSet: TDataSet);
+begin
+  EMPNombreEmpleado.Text := EMPApellido.Text + ', ' + EMPNombres.Text;
+end;
+
+procedure TdmInterface.qryFacturasCalcFields(DataSet: TDataSet);
+begin
+  qryFacturasSaldo.Value := qryFacturasMonto.Value - dmFactura.GetMontoPagado(qryFacturasIdFactura.Value);
+end;
+
+end.

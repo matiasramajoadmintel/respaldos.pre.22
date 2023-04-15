@@ -1,0 +1,5 @@
+TABLA GRADO
+	id unico key autoincremental CHECK
+
+TABAL ESPECIALIDAD
+	idespecialidad debe ser integer not float

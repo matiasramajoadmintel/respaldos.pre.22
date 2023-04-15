@@ -1,0 +1,10 @@
+unit Enums;
+
+interface
+
+type TModo = (ALTA, BAJA, MODIFICACION, CONSULTA);
+
+implementation
+
+end.
+ 

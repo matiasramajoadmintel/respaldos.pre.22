@@ -1,0 +1,49 @@
+unit RoutinesDataSets;
+
+interface
+
+uses
+  SysUtils, Classes, DB, DBTables;
+
+type
+  TdmRoutines = class(TDataModule)
+    TIPO: TTable;
+    MARCA: TTable;
+    MODELO: TTable;
+    FAMILIA: TTable;
+    SUBFAMILIA: TTable;
+    TIPOIdTipoEquipo: TFloatField;
+    TIPODescrip: TStringField;
+    MARCAIdMarca: TFloatField;
+    MARCADescrip: TStringField;
+    MODELOIdModelo: TFloatField;
+    MODELODescrip: TStringField;
+    FAMILIAIdFamilia: TFloatField;
+    FAMILIAIdTipoEquipo: TFloatField;
+    FAMILIAIdMarca: TFloatField;
+    FAMILIAIdModelo: TFloatField;
+    SUBFAMILIAIdFamilia: TFloatField;
+    SUBFAMILIAIdSubFamilia: TFloatField;
+    SUBFAMILIAInicio: TIntegerField;
+    SUBFAMILIAFin: TIntegerField;
+    FAMILIADescTipo: TStringField;
+    FAMILIADescMarca: TStringField;
+    FAMILIADescModelo: TStringField;
+    Q: TQuery;
+
+  private
+    { Private declarations }
+
+  public
+    {}
+    
+  end;
+
+var
+  dmRoutines: TdmRoutines;
+
+implementation
+
+{$R *.dfm}
+
+end.

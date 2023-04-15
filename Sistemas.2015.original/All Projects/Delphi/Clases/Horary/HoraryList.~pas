@@ -1,0 +1,66 @@
+unit HoraryList;
+
+interface
+
+uses Classes, Horary, Controls, Hour;
+
+Type
+  THoraryList = class(TList)
+
+    public
+      function IsIncluded(IdProf: Word; Dia: Byte; Hora: THour): Boolean;
+      function IsSuperposed(Horario: THorary): Boolean;
+
+    protected
+      {}
+
+    private
+      {}
+
+end;
+
+implementation
+
+function THoraryList.IsIncluded(IdProf: Word; Dia: Byte; Hora: THour): Boolean;
+var
+  Lista: THoraryList;
+  Horario: THorary;
+  i: Byte;
+begin
+  Result := False;
+  Lista := THoraryList(self);
+  i := 0;
+  while (i < Lista.Count) and not Result do
+  begin
+    Horario := Lista[i];
+    Result := (IdProf = Horario.IdProfesional) and (Dia = Horario.Dia) and
+              (Hora.ToReal >= Horario.HoraInicio.ToReal) and
+              (Hora.ToReal <= Horario.HoraFin.ToReal);
+    i := i + 1;
+  end;
+end;
+
+function THoraryList.IsSuperposed(Horario: THorary): Boolean;
+var
+  Lista: THoraryList;
+  HoraAux: THorary;
+  i: Byte;
+begin
+  Result := False;
+  Lista := THoraryList(self);
+  i := 0;
+  while (i < Lista.Count) and not Result do
+  begin
+    HoraAux := Lista[i];
+    Result := (Horario.IdProfesional = HoraAux.IdProfesional) and
+              (Horario.Dia = HoraAux.Dia) and
+              (((Horario.HoraInicio.ToReal >= HoraAux.HoraInicio.ToReal) and
+              (Horario.HoraInicio.ToReal <= HoraAux.HoraFin.ToReal)) or
+              ((Horario.HoraFin.ToReal >= HoraAux.HoraInicio.ToReal) and
+              (Horario.HoraFin.ToReal <= HoraAux.HoraFin.ToReal)));
+    i := i + 1;
+  end;
+end;
+
+
+end.

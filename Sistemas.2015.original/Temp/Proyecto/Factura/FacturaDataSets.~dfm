@@ -1,0 +1,39 @@
+object dmFactura: TdmFactura
+  OldCreateOrder = False
+  Left = 416
+  Top = 216
+  Height = 150
+  Width = 215
+  object qryMontoPagado: TQuery
+    DatabaseName = 'DBR'
+    SQL.Strings = (
+      'SELECT SUM(Monto) AS MontoPagado FROM PagoFactura'
+      'WHERE IdFactura = :F')
+    Left = 28
+    Top = 8
+    ParamData = <
+      item
+        DataType = ftSmallint
+        Name = 'F'
+        ParamType = ptUnknown
+      end>
+    object qryMontoPagadoMontoPagado: TFloatField
+      FieldName = 'MontoPagado'
+      Origin = 'DBR.PagoFactura.Monto'
+    end
+  end
+  object tblFactura: TTable
+    DatabaseName = 'DBR'
+    TableName = 'dbo.Factura'
+    Left = 114
+    Top = 8
+    object tblFacturaIdFactura: TSmallintField
+      FieldName = 'IdFactura'
+      Required = True
+    end
+    object tblFacturaPagado: TBooleanField
+      FieldName = 'Pagado'
+      Required = True
+    end
+  end
+end

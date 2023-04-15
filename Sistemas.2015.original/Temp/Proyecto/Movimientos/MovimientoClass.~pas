@@ -1,0 +1,31 @@
+unit MovimientoClass;
+
+interface
+
+Type
+  TMovimiento = Class
+
+    public
+      IdMovimiento: Smallint;
+      FechaEfectuada: TDateTime;
+      Monto: Currency;
+      Moneda: String;
+      FormaPago: String;
+      Tipo: String;
+      constructor Create;
+
+    protected
+      {}
+
+    private
+      {}
+
+end;
+
+implementation
+
+constructor TFactura.Create;
+begin
+end;
+
+end.

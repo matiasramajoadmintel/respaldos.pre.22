@@ -1,0 +1,22 @@
+unit MovimientoCobroClass;
+
+interface
+
+uses ObraClass;
+
+Type
+  TMovimientoCobro = Class
+
+  public
+    IdMovimiento: Smallint;
+    Obra: TObra;
+    Tipo: String;
+
+  private
+  {}
+
+end;
+
+implementation
+
+end.

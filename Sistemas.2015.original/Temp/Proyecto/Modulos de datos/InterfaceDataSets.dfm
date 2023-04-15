@@ -1,0 +1,638 @@
+object dmInterface: TdmInterface
+  OldCreateOrder = False
+  Left = 333
+  Top = 207
+  Height = 234
+  Width = 242
+  object qryClientes: TQuery
+    DatabaseName = 'DBR'
+    SQL.Strings = (
+      'SELECT * FROM vwClientes'
+      'ORDER BY RazonSocial')
+    Left = 19
+    Top = 6
+    object qryClientesIdCliente: TSmallintField
+      FieldName = 'IdCliente'
+      Origin = 'DBR.vwClientes.IdCliente'
+      Visible = False
+    end
+    object qryClientesRazonSocial: TStringField
+      DisplayLabel = 'Raz'#243'n social'
+      FieldName = 'RazonSocial'
+      Origin = 'DBR.vwClientes.RazonSocial'
+      Size = 60
+    end
+    object qryClientesDomicilio: TStringField
+      FieldName = 'Domicilio'
+      Origin = 'DBR.vwClientes.Domicilio'
+      Size = 60
+    end
+    object qryClientesEmail: TStringField
+      DisplayLabel = 'e-mail'
+      FieldName = 'Email'
+      Origin = 'DBR.vwClientes.Email'
+      Size = 30
+    end
+    object qryClientesLocalidad: TStringField
+      FieldName = 'Localidad'
+      Origin = 'DBR.vwClientes.Localidad'
+      Size = 50
+    end
+    object qryClientesCodigoPostal: TStringField
+      DisplayLabel = 'C'#243'digo postal'
+      FieldName = 'CodigoPostal'
+      Origin = 'DBR.vwClientes.CodigoPostal'
+      Size = 10
+    end
+    object qryClientesFechaNacimiento: TDateTimeField
+      DisplayLabel = 'Fecha de nacimiento'
+      FieldName = 'FechaNacimiento'
+      Origin = 'DBR.vwClientes.FechaNacimiento'
+      DisplayFormat = 'DD/MM/YYYY'
+    end
+    object qryClientesDNI: TStringField
+      FieldName = 'DNI'
+      Origin = 'DBR.vwClientes.DNI'
+      Size = 12
+    end
+    object qryClientesCUIT: TStringField
+      DisplayLabel = 'CUIT/CUIL'
+      FieldName = 'CUIT'
+      Origin = 'DBR.vwClientes.CUIT'
+      Size = 15
+    end
+  end
+  object qryObras: TQuery
+    OnCalcFields = qryObrasCalcFields
+    DatabaseName = 'DBR'
+    SQL.Strings = (
+      'SELECT * FROM vwObras'
+      'ORDER BY Nombre')
+    Left = 82
+    Top = 6
+    object qryObrasIdObra: TSmallintField
+      FieldName = 'IdObra'
+      Origin = 'DBR.vwObras.IdObra'
+      Visible = False
+    end
+    object qryObrasNroObra: TStringField
+      DisplayLabel = 'N'#250'mero'
+      FieldName = 'NroObra'
+      Origin = 'DBR.vwObras.NroObra'
+      Size = 6
+    end
+    object qryObrasTipoObra: TStringField
+      DisplayLabel = 'Tipo de obra'
+      FieldName = 'TipoObra'
+      Origin = 'DBR.vwObras.TipoObra'
+      Size = 50
+    end
+    object qryObrasCliente: TStringField
+      DisplayLabel = 'Propietario'
+      FieldName = 'Cliente'
+      Origin = 'DBR.vwObras.Cliente'
+      Size = 60
+    end
+    object qryObrasNombre: TStringField
+      FieldName = 'Nombre'
+      Origin = 'DBR.vwObras.Nombre'
+      Size = 50
+    end
+    object qryObrasDescripcion: TStringField
+      DisplayLabel = 'Descripci'#243'n'
+      FieldName = 'Descripcion'
+      Origin = 'DBR.vwObras.Descripcion'
+      Size = 255
+    end
+    object qryObrasPresupuesto: TFloatField
+      FieldName = 'Presupuesto'
+      Origin = 'DBR.vwObras.Presupuesto'
+      currency = True
+    end
+    object qryObrasHonorarios: TFloatField
+      FieldName = 'Honorarios'
+      Origin = 'DBR.vwObras.Honorarios'
+      currency = True
+    end
+    object qryObrasMoneda: TStringField
+      FieldName = 'Moneda'
+      Origin = 'DBR.vwObras.Moneda'
+      Size = 10
+    end
+    object qryObrasSuperficie: TFloatField
+      FieldName = 'Superficie'
+      Origin = 'DBR.vwObras.Superficie'
+      Visible = False
+    end
+    object qryObrasSup: TStringField
+      DisplayLabel = 'Superficie'
+      FieldKind = fkCalculated
+      FieldName = 'Sup'
+      Size = 7
+      Calculated = True
+    end
+    object qryObrasFechaInicio: TDateTimeField
+      DisplayLabel = 'Fecha inicio'
+      FieldName = 'FechaInicio'
+      Origin = 'DBR.vwObras.FechaInicio'
+      DisplayFormat = 'DD/MM/YYYY'
+    end
+    object qryObrasFechaFin: TDateTimeField
+      DisplayLabel = 'Fecha fin'
+      FieldName = 'FechaFin'
+      Origin = 'DBR.vwObras.FechaFin'
+      DisplayFormat = 'DD/MM/YYYY'
+    end
+    object qryObrasEstado: TStringField
+      FieldName = 'Estado'
+      Origin = 'DBR.vwObras.Estado'
+    end
+    object qryObrasPorcentaje: TIntegerField
+      FieldName = 'Porcentaje'
+      Origin = 'DBR.vwObras.Porcentaje'
+      Visible = False
+    end
+    object qryObrasPorc: TStringField
+      DisplayLabel = 'Porcentaje'
+      FieldKind = fkCalculated
+      FieldName = 'Porc'
+      Size = 5
+      Calculated = True
+    end
+    object qryObrasCantidadAmbientes: TSmallintField
+      DisplayLabel = 'Ambientes'
+      FieldName = 'CantidadAmbientes'
+      Origin = 'DBR.vwObras.CantidadAmbientes'
+    end
+    object qryObrasCantidadBanos: TSmallintField
+      DisplayLabel = 'Ba'#241'os'
+      FieldName = 'CantidadBanos'
+      Origin = 'DBR.vwObras.CantidadBanos'
+    end
+    object qryObrasTiempoEstimado: TSmallintField
+      DisplayLabel = 'Tiempo estimado'
+      FieldName = 'TiempoEstimado'
+      Origin = 'DBR.vwObras.TiempoEstimado'
+    end
+    object qryObrasFraccion: TStringField
+      DisplayLabel = 'Fracci'#243'n'
+      FieldName = 'Fraccion'
+      Origin = 'DBR.vwObras.Fraccion'
+      Size = 10
+    end
+    object qryObrasParcela: TStringField
+      FieldName = 'Parcela'
+      Origin = 'DBR.vwObras.Parcela'
+      Size = 10
+    end
+    object qryObrasUnidadFuncional: TStringField
+      DisplayLabel = 'Un. funcional'
+      FieldName = 'UnidadFuncional'
+      Origin = 'DBR.vwObras.UnidadFuncional'
+      Size = 10
+    end
+    object qryObrasNroCuentaMuni: TStringField
+      DisplayLabel = 'Cuenta municipal'
+      FieldName = 'NroCuentaMuni'
+      Origin = 'DBR.vwObras.NroCuentaMuni'
+    end
+    object qryObrasNroPartidaMuni: TStringField
+      DisplayLabel = 'Partida municipal'
+      FieldName = 'NroPartidaMuni'
+      Origin = 'DBR.vwObras.NroPartidaMuni'
+    end
+  end
+  object qryProveedores: TQuery
+    DatabaseName = 'DBR'
+    SQL.Strings = (
+      'SELECT * FROM Proveedor'
+      '')
+    Left = 150
+    Top = 6
+    object qryProveedoresIdProveedor: TSmallintField
+      FieldName = 'IdProveedor'
+      Origin = 'DBR.vwProveedores.IdProveedor'
+      Visible = False
+    end
+    object qryProveedoresCodigo: TStringField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'Codigo'
+      Origin = 'DBR.vwProveedores.Codigo'
+    end
+    object qryProveedoresRazonSocial: TStringField
+      DisplayLabel = 'Nombre de la empresa'
+      FieldName = 'RazonSocial'
+      Origin = 'DBR.vwProveedores.RazonSocial'
+      Size = 60
+    end
+    object qryProveedoresDomicilio: TStringField
+      FieldName = 'Domicilio'
+      Origin = 'DBR.vwProveedores.Domicilio'
+      Size = 60
+    end
+    object qryProveedoresLocalidad: TStringField
+      FieldName = 'Localidad'
+      Origin = 'DBR.Proveedor.Localidad'
+      Size = 50
+    end
+    object qryProveedoresCodigoPostal: TStringField
+      DisplayLabel = 'C'#243'digo postal'
+      FieldName = 'CodigoPostal'
+      Origin = 'DBR.Proveedor.CodigoPostal'
+      Size = 10
+    end
+    object qryProveedoresTelefono: TStringField
+      DisplayLabel = 'Tel'#233'fono'
+      FieldName = 'Telefono'
+      Origin = 'DBR.vwProveedores.Telefono'
+      Size = 30
+    end
+    object qryProveedoresFax: TStringField
+      FieldName = 'Fax'
+      Origin = 'DBR.vwProveedores.Fax'
+      Size = 30
+    end
+    object qryProveedoresEmail: TStringField
+      DisplayLabel = 'e-mail'
+      FieldName = 'Email'
+      Origin = 'DBR.vwProveedores.Email'
+      Size = 30
+    end
+    object qryProveedoresCuit: TStringField
+      DisplayLabel = 'CUIT'
+      FieldName = 'Cuit'
+      Origin = 'DBR.vwProveedores.Cuit'
+      Size = 15
+    end
+    object qryProveedoresContacto: TStringField
+      FieldName = 'Contacto'
+      Origin = 'DBR.vwProveedores.Contacto'
+      Size = 50
+    end
+    object qryProveedoresTelefonoContacto: TStringField
+      DisplayLabel = 'Tel'#233'fono contacto'
+      FieldName = 'TelefonoContacto'
+      Origin = 'DBR.vwProveedores.TelefonoContacto'
+      Size = 30
+    end
+    object qryProveedoresMovilContacto: TStringField
+      DisplayLabel = 'M'#243'vil contacto'
+      FieldName = 'MovilContacto'
+      Origin = 'DBR.Proveedor.MovilContacto'
+      Size = 30
+    end
+    object qryProveedoresEmailContacto: TStringField
+      DisplayLabel = 'e-mail contacto'
+      FieldName = 'EmailContacto'
+      Origin = 'DBR.Proveedor.EmailContacto'
+      Size = 30
+    end
+    object qryProveedoresPaginaWeb: TStringField
+      DisplayLabel = 'P'#225'gina Web'
+      FieldName = 'PaginaWeb'
+      Origin = 'DBR.Proveedor.PaginaWeb'
+      Size = 50
+    end
+  end
+  object qryEmpleados: TQuery
+    DatabaseName = 'DBR'
+    SQL.Strings = (
+      'SELECT * FROM vwEmpleados')
+    Left = 19
+    Top = 58
+    object qryEmpleadosIdEmpleado: TSmallintField
+      FieldName = 'IdEmpleado'
+      Origin = 'DBR.vwEmpleados.IdEmpleado'
+      Visible = False
+    end
+    object qryEmpleadosApellido: TStringField
+      FieldName = 'Apellido'
+      Origin = 'DBR.vwEmpleados.Apellido'
+      Size = 50
+    end
+    object qryEmpleadosNombres: TStringField
+      FieldName = 'Nombres'
+      Origin = 'DBR.vwEmpleados.Nombres'
+      Size = 50
+    end
+    object qryEmpleadosDomicilio: TStringField
+      FieldName = 'Domicilio'
+      Origin = 'DBR.vwEmpleados.Domicilio'
+      Size = 60
+    end
+    object qryEmpleadosEmail: TStringField
+      DisplayLabel = 'e-mail'
+      FieldName = 'Email'
+      Origin = 'DBR.vwEmpleados.Email'
+      Size = 30
+    end
+  end
+  object qryFacturas: TQuery
+    OnCalcFields = qryFacturasCalcFields
+    DatabaseName = 'DBR'
+    SQL.Strings = (
+      'SELECT * FROM vwFacturas')
+    Left = 88
+    Top = 58
+    object qryFacturasIdFactura: TSmallintField
+      FieldName = 'IdFactura'
+      Origin = 'DBR.vwFacturas.IdFactura'
+      Visible = False
+    end
+    object qryFacturasNumero: TStringField
+      DisplayLabel = 'N'#250'mero'
+      FieldName = 'Numero'
+      Origin = 'DBR.vwFacturas.NumeroFactura'
+      Size = 15
+    end
+    object qryFacturasFecha: TDateTimeField
+      FieldName = 'Fecha'
+      Origin = 'DBR.vwFacturas.Fecha'
+      DisplayFormat = 'DD/MM/YYYY'
+    end
+    object qryFacturasProveedor: TStringField
+      FieldName = 'Proveedor'
+      Origin = 'DBR.vwFacturas.Proveedor'
+      Size = 60
+    end
+    object qryFacturasObra: TStringField
+      FieldName = 'Obra'
+      Origin = 'DBR.vwFacturas.Nombre'
+      Size = 50
+    end
+    object qryFacturasPagado: TBooleanField
+      FieldName = 'Pagado'
+      Origin = 'DBR.vwFacturas.Pagado'
+      DisplayValues = 'S'#237';'
+    end
+    object qryFacturasTipo: TStringField
+      FieldName = 'Tipo'
+      Origin = 'DBR.vwFacturas.Tipo'
+      Size = 10
+    end
+    object qryFacturasMonto: TFloatField
+      FieldName = 'Monto'
+      Origin = 'DBR.vwFacturas.Monto'
+      currency = True
+    end
+    object qryFacturasSaldo: TCurrencyField
+      FieldKind = fkCalculated
+      FieldName = 'Saldo'
+      Calculated = True
+    end
+  end
+  object qryPedidos: TQuery
+    DatabaseName = 'DBR'
+    SQL.Strings = (
+      'SELECT * FROM vwPedidos')
+    Left = 154
+    Top = 60
+    object qryPedidosIdPedido: TSmallintField
+      FieldName = 'IdPedido'
+      Origin = 'DBR.vwPedidos.IdPedido'
+      Visible = False
+    end
+    object qryPedidosNumero: TStringField
+      DisplayLabel = 'N'#250'mero'
+      FieldName = 'Numero'
+      Origin = 'DBR.vwPedidos.Numero'
+      Size = 15
+    end
+    object qryPedidosFecha: TDateTimeField
+      FieldName = 'Fecha'
+      Origin = 'DBR.vwPedidos.Fecha'
+      DisplayFormat = 'DD/MM/YYYY'
+    end
+    object qryPedidosObra: TStringField
+      FieldName = 'Obra'
+      Origin = 'DBR.vwPedidos.Obra'
+      Size = 50
+    end
+    object qryPedidosProveedor: TStringField
+      FieldName = 'Proveedor'
+      Origin = 'DBR.vwPedidos.Proveedor'
+      Size = 60
+    end
+    object qryPedidosIdSolicitante: TSmallintField
+      FieldName = 'IdSolicitante'
+      Origin = 'DBR.vwPedidos.IdSolicitante'
+      Visible = False
+    end
+    object qryPedidosIdProcesa: TSmallintField
+      FieldName = 'IdProcesa'
+      Origin = 'DBR.vwPedidos.IdProcesa'
+      Visible = False
+    end
+    object qryPedidosIdAutoriza: TSmallintField
+      FieldName = 'IdAutoriza'
+      Origin = 'DBR.vwPedidos.IdAutoriza'
+      Visible = False
+    end
+    object qryPedidosSolicitante: TStringField
+      FieldKind = fkLookup
+      FieldName = 'Solicitante'
+      LookupDataSet = EMP
+      LookupKeyFields = 'IdEmpleado'
+      LookupResultField = 'NombreEmpleado'
+      KeyFields = 'IdSolicitante'
+      Size = 75
+      Lookup = True
+    end
+    object qryPedidosProcesa: TStringField
+      FieldKind = fkLookup
+      FieldName = 'Procesa'
+      LookupDataSet = EMP
+      LookupKeyFields = 'IdEmpleado'
+      LookupResultField = 'NombreEmpleado'
+      KeyFields = 'IdProcesa'
+      Size = 75
+      Lookup = True
+    end
+    object qryPedidosAutoriza: TStringField
+      FieldKind = fkLookup
+      FieldName = 'Autoriza'
+      LookupDataSet = EMP
+      LookupKeyFields = 'IdEmpleado'
+      LookupResultField = 'NombreEmpleado'
+      KeyFields = 'IdAutoriza'
+      Size = 75
+      Lookup = True
+    end
+  end
+  object EMP: TTable
+    OnCalcFields = EMPCalcFields
+    DatabaseName = 'DBR'
+    TableName = 'dbo.Empleado'
+    Left = 188
+    Top = 156
+    object EMPIdEmpleado: TSmallintField
+      FieldName = 'IdEmpleado'
+      Required = True
+    end
+    object EMPApellido: TStringField
+      FieldName = 'Apellido'
+      Required = True
+      Size = 50
+    end
+    object EMPNombres: TStringField
+      FieldName = 'Nombres'
+      Required = True
+      Size = 50
+    end
+    object EMPNombreEmpleado: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'NombreEmpleado'
+      Size = 75
+      Calculated = True
+    end
+  end
+  object qryRemitos: TQuery
+    DatabaseName = 'DBR'
+    SQL.Strings = (
+      'SELECT * FROM vwRemitos')
+    Left = 18
+    Top = 116
+    object qryRemitosIdRemito: TSmallintField
+      FieldName = 'IdRemito'
+      Origin = 'DBR.vwRemitos.IdRemito'
+      Visible = False
+    end
+    object qryRemitosNumero: TStringField
+      DisplayLabel = 'N'#250'mero'
+      FieldName = 'Numero'
+      Origin = 'DBR.vwRemitos.Numero'
+      Size = 15
+    end
+    object qryRemitosFecha: TDateTimeField
+      FieldName = 'Fecha'
+      Origin = 'DBR.vwRemitos.Fecha'
+      DisplayFormat = 'DD/MM/YYYY'
+    end
+    object qryRemitosProveedor: TStringField
+      FieldName = 'Proveedor'
+      Origin = 'DBR.vwRemitos.Proveedor'
+      Size = 60
+    end
+    object qryRemitosObra: TStringField
+      FieldName = 'Obra'
+      Origin = 'DBR.vwRemitos.Obra'
+      Size = 50
+    end
+    object qryRemitosRecibe: TStringField
+      DisplayLabel = 'Recibido por'
+      FieldName = 'Recibe'
+      Origin = 'DBR.vwRemitos.Recibe'
+      Size = 102
+    end
+  end
+  object qryCobros: TQuery
+    DatabaseName = 'DBR'
+    SQL.Strings = (
+      'SELECT * FROM vwMovimientosCobro')
+    Left = 82
+    Top = 116
+    object qryCobrosIdMovimiento: TIntegerField
+      FieldName = 'IdMovimiento'
+      Origin = 'DBR.vwMovimientosCobro.IdMovimiento'
+      Visible = False
+    end
+    object qryCobrosObra: TStringField
+      FieldName = 'Obra'
+      Origin = 'DBR.vwMovimientosCobro.Obra'
+      Size = 50
+    end
+    object qryCobrosPropietario: TStringField
+      FieldName = 'Propietario'
+      Origin = 'DBR.vwMovimientosCobro.Propietario'
+      Size = 60
+    end
+    object qryCobrosFecha: TDateTimeField
+      FieldName = 'Fecha'
+      Origin = 'DBR.vwMovimientosCobro.Fecha'
+      DisplayFormat = 'DD/MM/YYYY'
+    end
+    object qryCobrosMonto: TFloatField
+      FieldName = 'Monto'
+      Origin = 'DBR.vwMovimientosCobro.Monto'
+      currency = True
+    end
+    object qryCobrosMoneda: TStringField
+      FieldName = 'Moneda'
+      Origin = 'DBR.vwMovimientosCobro.Moneda'
+      Size = 10
+    end
+    object qryCobrosFormaPago: TStringField
+      DisplayLabel = 'Forma de pago'
+      FieldName = 'FormaPago'
+      Origin = 'DBR.vwMovimientosCobro.FormaPago'
+      Size = 10
+    end
+    object qryCobrosTipoMov: TStringField
+      FieldName = 'TipoMov'
+      Origin = 'DBR.vwMovimientosCobro.TipoMov'
+      Visible = False
+      Size = 10
+    end
+    object qryCobrosTipoCobro: TStringField
+      DisplayLabel = 'Tipo de cobro'
+      FieldName = 'TipoCobro'
+      Origin = 'DBR.vwMovimientosCobro.TipoCobro'
+    end
+    object qryCobrosIdObra: TSmallintField
+      FieldName = 'IdObra'
+      Origin = 'DBR.vwMovimientosCobro.IdObra'
+      Visible = False
+    end
+    object qryCobrosCheque: TStringField
+      FieldName = 'Cheque'
+      Origin = 'DBR.vwMovimientosCobro.Cheque'
+    end
+  end
+  object qryPagos: TQuery
+    DatabaseName = 'DBR'
+    SQL.Strings = (
+      'SELECT * FROM vwPagosFactura')
+    Left = 148
+    Top = 118
+    object qryPagosIdMovimiento: TIntegerField
+      FieldName = 'IdMovimiento'
+      Origin = 'DBR.vwPagosFactura.IdMovimiento'
+      Visible = False
+    end
+    object qryPagosProveedor: TStringField
+      FieldName = 'Proveedor'
+      Origin = 'DBR.vwPagosFactura.Proveedor'
+      Size = 60
+    end
+    object qryPagosFactura: TStringField
+      FieldName = 'Factura'
+      Origin = 'DBR.vwPagosFactura.Factura'
+      Size = 15
+    end
+    object qryPagosFecha: TDateTimeField
+      FieldName = 'Fecha'
+      Origin = 'DBR.vwPagosFactura.Fecha'
+      DisplayFormat = 'DD/MM/YYYY'
+    end
+    object qryPagosMonto: TFloatField
+      FieldName = 'Monto'
+      Origin = 'DBR.vwPagosFactura.Monto'
+      currency = True
+    end
+    object qryPagosMoneda: TStringField
+      FieldName = 'Moneda'
+      Origin = 'DBR.vwPagosFactura.Moneda'
+      Size = 10
+    end
+    object qryPagosFormaPago: TStringField
+      DisplayLabel = 'Forma de pago'
+      FieldName = 'FormaPago'
+      Origin = 'DBR.vwPagosFactura.FormaPago'
+      Size = 10
+    end
+    object qryPagosCheque: TStringField
+      FieldName = 'Cheque'
+      Origin = 'DBR.vwPagosFactura.Cheque'
+    end
+  end
+end

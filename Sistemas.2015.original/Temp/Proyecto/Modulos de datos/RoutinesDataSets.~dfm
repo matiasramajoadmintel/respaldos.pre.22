@@ -1,0 +1,131 @@
+object dmRoutines: TdmRoutines
+  OldCreateOrder = False
+  Left = 316
+  Top = 205
+  Height = 215
+  Width = 325
+  object TIPO: TTable
+    DatabaseName = 'MDB'
+    TableName = 'dbo.TipoEquipo'
+    Left = 16
+    Top = 14
+    object TIPOIdTipoEquipo: TFloatField
+      FieldName = 'IdTipoEquipo'
+      Required = True
+    end
+    object TIPODescrip: TStringField
+      FieldName = 'Descrip'
+      Required = True
+      Size = 60
+    end
+  end
+  object MARCA: TTable
+    DatabaseName = 'MDB'
+    TableName = 'dbo.Marca'
+    Left = 76
+    Top = 14
+    object MARCAIdMarca: TFloatField
+      FieldName = 'IdMarca'
+      Required = True
+    end
+    object MARCADescrip: TStringField
+      FieldName = 'Descrip'
+      Required = True
+      Size = 60
+    end
+  end
+  object MODELO: TTable
+    DatabaseName = 'MDB'
+    TableName = 'dbo.Modelo'
+    Left = 139
+    Top = 14
+    object MODELOIdModelo: TFloatField
+      FieldName = 'IdModelo'
+      Required = True
+    end
+    object MODELODescrip: TStringField
+      FieldName = 'Descrip'
+      Required = True
+      Size = 60
+    end
+  end
+  object FAMILIA: TTable
+    DatabaseName = 'MDB'
+    TableName = 'dbo.Familia'
+    Left = 197
+    Top = 14
+    object FAMILIAIdFamilia: TFloatField
+      FieldName = 'IdFamilia'
+      Required = True
+    end
+    object FAMILIAIdTipoEquipo: TFloatField
+      FieldName = 'IdTipoEquipo'
+      Required = True
+    end
+    object FAMILIAIdMarca: TFloatField
+      FieldName = 'IdMarca'
+      Required = True
+    end
+    object FAMILIAIdModelo: TFloatField
+      FieldName = 'IdModelo'
+      Required = True
+    end
+    object FAMILIADescTipo: TStringField
+      FieldKind = fkLookup
+      FieldName = 'DescTipo'
+      LookupDataSet = TIPO
+      LookupKeyFields = 'IdTipoEquipo'
+      LookupResultField = 'Descrip'
+      KeyFields = 'IdTipoEquipo'
+      Size = 60
+      Lookup = True
+    end
+    object FAMILIADescMarca: TStringField
+      FieldKind = fkLookup
+      FieldName = 'DescMarca'
+      LookupDataSet = MARCA
+      LookupKeyFields = 'IdMarca'
+      LookupResultField = 'Descrip'
+      KeyFields = 'IdMarca'
+      Size = 60
+      Lookup = True
+    end
+    object FAMILIADescModelo: TStringField
+      FieldKind = fkLookup
+      FieldName = 'DescModelo'
+      LookupDataSet = MODELO
+      LookupKeyFields = 'IdModelo'
+      LookupResultField = 'Descrip'
+      KeyFields = 'IdModelo'
+      Size = 60
+      Lookup = True
+    end
+  end
+  object SUBFAMILIA: TTable
+    DatabaseName = 'MDB'
+    TableName = 'dbo.SubFamilia'
+    Left = 258
+    Top = 14
+    object SUBFAMILIAIdFamilia: TFloatField
+      FieldName = 'IdFamilia'
+      Required = True
+    end
+    object SUBFAMILIAIdSubFamilia: TFloatField
+      FieldName = 'IdSubFamilia'
+      Required = True
+    end
+    object SUBFAMILIAInicio: TIntegerField
+      FieldName = 'Inicio'
+      Required = True
+    end
+    object SUBFAMILIAFin: TIntegerField
+      FieldName = 'Fin'
+      Required = True
+    end
+  end
+  object Q: TQuery
+    DatabaseName = 'MDB'
+    Left = 262
+    Top = 132
+  end
+end

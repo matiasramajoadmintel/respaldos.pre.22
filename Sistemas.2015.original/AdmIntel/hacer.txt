@@ -1,0 +1,3 @@
+- Estadisticas d mantenimineto (de nuevo)
+- Faltan estadistcas de gastos fin.
+- Est. gastos ad. no muestra bien graficos.

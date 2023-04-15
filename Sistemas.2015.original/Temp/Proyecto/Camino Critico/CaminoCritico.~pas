@@ -1,0 +1,40 @@
+unit CaminoCritico;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, Buttons;
+
+type
+  TfrmCaminoCritico = class(TForm)
+    BitBtn1: TBitBtn;
+    procedure BitBtn1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    procedure Mostrar(IdObra: Integer);
+  end;
+
+var
+  frmCaminoCritico: TfrmCaminoCritico;
+
+implementation
+
+uses Comunes, Input;
+
+{$R *.dfm}
+
+procedure TfrmCaminoCritico.Mostrar(IdObra: Integer);
+begin
+
+
+  ShowModal;
+end;
+
+procedure TfrmCaminoCritico.BitBtn1Click(Sender: TObject);
+begin
+  {}
+end;
+
+end.

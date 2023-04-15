@@ -1,0 +1,11 @@
+unit Constants;
+
+interface
+
+//  public
+ //   MODO_ALTA = 0;
+    
+implementation
+
+end.
+ 
