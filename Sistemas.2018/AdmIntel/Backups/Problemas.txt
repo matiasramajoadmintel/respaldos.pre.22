@@ -1,0 +1,29 @@
+- Revisar por que parpadea la grilla en Principal cuando modifico un dato. Ver el Recuperar y Guardar el Estado de grilla.
+
+- Una vez terminadas las modificaciones en la BD chequear todas las FK y las check.
+
+- Una ves terminadas las modificaciones en las pantallas, ordenar los eventos en Principal.
+
+- Terminar Detalle en listado de cheques
+
+- Hacer una pantalla (Opciones o similar) que permita eliminar los archivos de columnas.
+
+- Permitir que NroTrab sea nulo
+
+- Refrescar listado en Principal cuando sale de un ABM
+
+- Ver en TrabEdif que pasa si no puso el edif y lo mismo en TrabDepto
+
+- En Trabajo el rubro o cat no puede ser nulo.
+
+- El form principal debe tener algun patron que ordene todo el quilombo
+
+- En listado de pagos los trabaos deberian llevar nro fact. y no de pedido.
+
+- Cambiar el caption de pagos pendientes
+
+- En det. pagos ver nro. orden
+
+- terminar impresion gastos serv.
+
+- LEER RED"!!!!!

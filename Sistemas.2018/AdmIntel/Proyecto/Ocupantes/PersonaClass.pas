@@ -1,0 +1,37 @@
+unit PersonaClass;
+
+interface
+
+uses Classes;
+
+Type
+  TTipoDoc = (DNI, LE, LC, CI, PAS);
+  TTipoPersona = (OCUP_CIV, OCUP_MIL, OCUP_PART, MIL_NO_OCUP);
+
+Type
+  TPersona = Class
+
+  public
+    constructor Create(); overload;
+    //constructor Create(Id: Integer); overload;
+
+  private
+    IdPersona: Integer;
+    TipoDocumento: TTipoDoc;
+    NroDocumento: Integer;
+    Nombre: String;
+    Telefono: String;
+    Email: String;
+    Tipo: TTipoPersona;
+    Obs: TStrings;
+
+end;
+
+implementation
+
+constructor TPersona.Create();
+begin
+  {}
+end;
+
+end.

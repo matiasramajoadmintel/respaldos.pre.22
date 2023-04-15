@@ -1,0 +1,30 @@
+1 Cambiar el titulo de Ocupantes por "Datos de Personas"
+
+2 En la consulta de Cobros a particulares es necesario que se pueda filtrar por fecha, ocupante ,edificio,etc..
+
+3  Informes Cobros a particulares Coloca solo el edificio H Irig 1249 y luego a TODOS los particulares con el Dpto que corresponde pero de todos los edificios juntos
+
+4 Ademas colcar un colum. que sume Alq+Exp y luego RAE y Total
+
+5 Informes Resumen de cobros Es necesario que salga por edificio,con nombre, dpto similar al alquiler y expensas pero juntando por ejemplo
+
+   Grado   Ap y Nom   MR /Dni  Dpto   Alquiler Expensas  Cod 418    Rae (317) Total
+                                                         (alq +exp)
+
+y sumando el total por columnas
+
+6 Informes Descuentos en cada edificio coloca el total de ocup. acumulado NO el de c/edif.
+
+7 En las planillas de descuento va colocando el total acumulado de $ pero no el total por edificio debe ser por edif y al final sumar todo
+
+8  En la generacion de descuentos por expensas aparece el cartel "Aqui esta" que fue para la prueba
+
+DESCUENTOS
+Alquileres BIEN en Todos los casos
+Expensas Gasto  Admin                                  Bien
+                Gastos financ.                         Bien
+                Gastos Serv. Todos                     Bien            
+                Gastos Serv. Conce.                    Bien 
+
+                Mante en Dpto  Conce.                  Mal
+                Mante en edificios Todos               Mal

@@ -1,0 +1,65 @@
+unit UtilCollections;
+
+interface
+
+uses
+  SysUtils, Classes, DB, DBTables, GradoClass, EspecialidadClass;
+
+type
+  TdmUtilCollections = class(TDataModule)
+    Q: TQuery;
+
+  private
+    { Private declarations }
+
+  public
+    function GetGrados: TList;
+    function GetEspecialidades: TList;
+
+  end;
+
+var
+  dmUtilCollections: TdmUtilCollections;
+
+implementation
+
+{$R *.dfm}
+
+function TdmUtilCollections.GetGrados: TList;
+var
+  L: TList;
+begin
+  L := TList.Create;
+  Q.SQL.Clear;
+  Q.SQL.Add('SELECT * FROM GRADO ORDER BY DESCRIPCION');
+  Q.Open;
+  Q.First;
+  while not Q.Eof do
+  begin
+    L.Add(TGrado.Create(Q.FieldByName('IDGRADO').AsInteger));
+    Q.Next;
+  end;
+  Q.Close;
+  Result := L;
+end;
+
+function TdmUtilCollections.GetEspecialidades: TList;
+var
+  L: TList;
+begin
+{  L := TList.Create;
+
+  Q.SQL.Clear;
+  Q.SQL.Add('SELECT * FROM GRADO ORDER BY DESCRIPCION');
+  Q.Open;
+  Q.First;
+  while not Q.Eof do
+  begin
+    L.Add(TEspecialidad.Create(Q IDESPECIALIDAD.Value));
+    tblEspecialidad_.Next;
+  end;
+  tblEspecialidad_.Close;
+  Result := L;}
+end;
+
+end.

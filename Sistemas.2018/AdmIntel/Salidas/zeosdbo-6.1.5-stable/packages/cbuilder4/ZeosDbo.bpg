@@ -1,0 +1,33 @@
+#------------------------------------------------------------------------------
+VERSION = BWS.01
+#------------------------------------------------------------------------------
+!ifndef ROOT
+ROOT = $(MAKEDIR)\..
+!endif
+#------------------------------------------------------------------------------
+MAKE = $(ROOT)\bin\make.exe -$(MAKEFLAGS) -f$**
+DCC = $(ROOT)\bin\dcc32.exe $**
+BRCC = $(ROOT)\bin\brcc32.exe $**
+#------------------------------------------------------------------------------
+PROJECTS = ZCore.bpl ZParseSql.bpl ZPlain.bpl \
+  ZDbc.bpl ZComponent.bpl
+#------------------------------------------------------------------------------
+default: $(PROJECTS)
+#------------------------------------------------------------------------------
+
+ZCore.bpl: ZCore.bpk
+  $(MAKE)
+
+ZParseSql.bpl: ZParseSql.bpk
+  $(MAKE)
+
+ZPlain.bpl: ZPlain.bpk
+  $(MAKE)
+
+ZDbc.bpl: ZDbc.bpk
+  $(MAKE)
+
+ZComponent.bpl: ZComponent.bpk
+  $(MAKE)
+
+

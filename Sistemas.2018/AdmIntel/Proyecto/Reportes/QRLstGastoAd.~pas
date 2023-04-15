@@ -1,0 +1,114 @@
+unit QRLstGastoAd;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, ComObj,
+  DB, DBTables, QRCTRLS, QUICKRPT, ExtCtrls;
+
+type
+  TfrmQRLstGastoAd = class(TForm)
+    rpt: TQuickRep;
+    DetailBand1: TQRBand;
+    PageFooterBand1: TQRBand;
+    QRSysData2: TQRSysData;
+    ColumnHeaderBand1: TQRBand;
+    QRLabel1: TQRLabel;
+    QRLabel3: TQRLabel;
+    QRLabel6: TQRLabel;
+    QRLabel7: TQRLabel;
+    QRDBText1: TQRDBText;
+    QRDBText2: TQRDBText;
+    QRDBText4: TQRDBText;
+    QRDBText6: TQRDBText;
+    QRDBText7: TQRDBText;
+    QRBand1: TQRBand;
+    QRLabel13: TQRLabel;
+    QRLabel14: TQRLabel;
+    QRSysData3: TQRSysData;
+    QRLabel4: TQRLabel;
+    QRBand2: TQRBand;
+    lblT: TQRLabel;
+    QRLabel8: TQRLabel;
+    QRSysData1: TQRSysData;
+  private
+    procedure SumarImportes;
+
+  public
+    procedure VistaPrevia;
+    procedure Imprimir;
+
+  end;
+
+var
+  frmQRLstGastoAd: TfrmQRLstGastoAd;
+
+implementation
+
+uses PoolQuerys, Comunes;
+
+{$R *.dfm}
+
+procedure TfrmQRLstGastoAd.VistaPrevia;
+begin
+  SumarImportes;
+  rpt.Preview;
+  Application.ProcessMessages;
+end;
+
+procedure TfrmQRLstGastoAd.Imprimir;
+begin
+  SumarImportes;
+  rpt.Print;
+  Application.ProcessMessages;
+end;
+
+procedure TfrmQRLstGastoAd.SumarImportes;
+var
+  Total: Currency;
+  Excel, Libro : Variant;
+  i:integer;
+begin
+      Total := SumaColumna(dmQuerys.qryGastoAd,'COSTO');
+
+    // Crea una aplicacion Excel.
+      Excel := CreateOleObject ('Excel.Application');
+      // La muestra (vas a ver un Excel como si lo hubieras ejecutado)
+      Excel.Visible := True;
+      // Agrega un libro.
+      Excel.WorkBooks.Add (-4167);
+      // Le asigna un nombre al libro
+      Excel.WorkBooks[1].WorkSheets[1].Name := 'Reporte';
+      // Hace un puntero al libro del Excel.
+      Libro := Excel.WorkBooks[1].WorkSheets['Reporte'];
+
+      dmQuerys.qryGastoAd.Open;
+      i:=1;
+      while not dmQuerys.qryGastoAd.Eof do
+       begin
+          // aqui le ponemos nombre a los campos
+          Libro.Cells [1,1] := 'FECHA';
+          Libro.Cells [1,2] := 'CONCEPTO';
+          Libro.Cells [1,3] := 'PROVEEDOR';
+          Libro.Cells [1,4] := 'PAGADO';
+          Libro.Cells [1,5] := 'IMPORTE';
+
+          i:=i+1;
+          Libro.Cells [i,1] := dmQuerys.qryGastoAd.FieldByName ('FECHA').AsString;
+          Libro.Cells [i,2] := dmQuerys.qryGastoAd.FieldByName ('DESCRIP').AsString;
+          Libro.Cells [i,3] := dmQuerys.qryGastoAd.FieldByName ('RAZON_SOCIAL').AsString;
+          Libro.Cells [i,4] := dmQuerys.qryGastoAd.FieldByName ('PAGADO').AsString;
+          Libro.Cells [i,5] := dmQuerys.qryGastoAd.FieldByName('COSTO').AsFloat;
+
+          dmQuerys.qryGastoAd.Next;
+       end;
+
+    lblT.Caption := CurrToStrF(Total,ffCurrency ,2);
+    rpt.ReportTitle := 'Gastos administrativos';
+end;
+
+end.
+
+
+
+
