@@ -1,0 +1,122 @@
+object frmGrafico: TfrmGrafico
+  Left = 200
+  Top = 144
+  Width = 544
+  Height = 375
+  Caption = 'Resumen de tareas'
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poDefault
+  OnActivate = FormCreate
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnDeactivate = FormDestroy
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Panel2: TPanel
+    Left = 0
+    Top = 318
+    Width = 536
+    Height = 30
+    Align = alBottom
+    TabOrder = 0
+    object Panel1: TPanel
+      Left = 440
+      Top = 1
+      Width = 95
+      Height = 28
+      Align = alRight
+      BevelOuter = bvNone
+      TabOrder = 0
+      object btnAceptar: TBitBtn
+        Left = 18
+        Top = 1
+        Width = 75
+        Height = 25
+        Caption = '&Cerrar'
+        TabOrder = 0
+        OnClick = btnAceptarClick
+        Kind = bkClose
+      end
+    end
+  end
+  object DBChart1: TDBChart
+    Left = 0
+    Top = 0
+    Width = 536
+    Height = 318
+    BackWall.Brush.Color = clWhite
+    Gradient.EndColor = 8454143
+    Gradient.Visible = True
+    MarginTop = 5
+    Title.Text.Strings = (
+      '')
+    Legend.Visible = False
+    View3D = False
+    View3DOptions.Elevation = 351
+    View3DOptions.HorizOffset = 15
+    View3DOptions.Orthogonal = False
+    View3DOptions.Perspective = 100
+    View3DOptions.Rotation = 360
+    View3DOptions.VertOffset = -1
+    View3DOptions.Zoom = 114
+    View3DOptions.ZoomText = False
+    Align = alClient
+    BevelInner = bvLowered
+    BorderWidth = 3
+    TabOrder = 1
+    object Series1: TPieSeries
+      Marks.ArrowLength = 8
+      Marks.Style = smsLabelPercent
+      Marks.Visible = True
+      DataSource = dmQuerys.qryResTareas
+      SeriesColor = clRed
+      XLabelsSource = 'DESCRIP'
+      OtherSlice.Text = 'Other'
+      PieValues.DateTime = False
+      PieValues.Name = 'Pie'
+      PieValues.Multiplier = 1
+      PieValues.Order = loNone
+      PieValues.ValueSource = 'CANTIDAD'
+    end
+    object Series2: TPieSeries
+      Marks.ArrowLength = 8
+      Marks.Style = smsLabelPercent
+      Marks.Visible = True
+      DataSource = dmQuerys.qryCantTareas
+      SeriesColor = clGreen
+      XLabelsSource = 'TAREA'
+      OtherSlice.Text = 'Other'
+      PieValues.DateTime = False
+      PieValues.Name = 'Pie'
+      PieValues.Multiplier = 1
+      PieValues.Order = loNone
+      PieValues.ValueSource = 'CANTIDAD'
+    end
+    object Series3: TLineSeries
+      ColorEachPoint = True
+      Marks.ArrowLength = 8
+      Marks.Visible = True
+      DataSource = dmQuerys.qryMontoXProv
+      SeriesColor = clYellow
+      XLabelsSource = 'RAZON_SOCIAL'
+      Pointer.InflateMargins = True
+      Pointer.Style = psRectangle
+      Pointer.Visible = False
+      XValues.DateTime = False
+      XValues.Name = 'X'
+      XValues.Multiplier = 1
+      XValues.Order = loAscending
+      YValues.DateTime = False
+      YValues.Name = 'Y'
+      YValues.Multiplier = 1
+      YValues.Order = loNone
+      YValues.ValueSource = 'IMPORTE'
+    end
+  end
+end

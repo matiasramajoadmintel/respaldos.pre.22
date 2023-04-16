@@ -1,0 +1,48 @@
+		DESCUENTOS
+	   =================
+
+{ FORMAS DE PRORRATEO DE GASTOS POR SERVICIOS:
+  1: Entre todas las viviendas ocupadas en partes iguales
+  2: Entre todas las viviendas ocupadas según su superficie
+  3: Entre todas las viviendas (ocupadas y vacias) según su superficie
+  4: Sin prorrateo, pagado por Alcaldía
+  5: Sin prorrateo, pagado por el ocupante }
+
+  //Verifica si ya se generaron los descuentos de expensas para ese mes y año
+
+//Obtiene las fecha inicio y fin (F1 y F2) con las que filtra los gastos
+
+//Obtiene el número total de viviendas
+
+//Obtiene la suma de todos los gastos administrativos entre F1 y F2 y calcula
+//cuanto debe pagar cada ocupante.
+
+//Obtiene la suma de todos los gastos financieros entre F1 y F2 y calcula cuanto
+//debe pagar cada ocupante.
+
+//Obtiene los gastos de mantenimiento para cada edificio.
+
+//Obtiene los gastos de mantenimiento para cada departamento
+
+//Obtiene los gastos de servicios para cada edificio.
+
+      //Obtiene el número total de ocupantes
+
+
+      //Recorre los departamentos ocupados
+
+        //Incluye los montos correspondientes a gastos administrativos y finanjcieros
+
+        //Incluye los gastos de mantenimiento en edificio si los hay
+
+        //Incluye los gastos de servicios que se prorratean entre las viviendas
+        //ocupadas en partes iguales
+
+        //Incluye los gastos de servicios que se prorratean entre las viviendas
+        //ocupadas según su coeficiente de superficie
+
+        //Incluye los gastos de servicios que se prorratean entre todas las
+        //viviendas en partes iguales
+
+        //Incluye los gastos de mantenimiento en el departamento que le
+        //corresponde pagar al ocupante

@@ -1,0 +1,10 @@
+SELECT Tarea.DESCRIP, Trab_depto.IDDEPARTAMENTO, Trabajo.FECHA_FIN, Proveedor.RAZON_SOCIAL
+FROM TRABAJO Trabajo
+   INNER JOIN TRAB_DEPTO Trab_depto
+   ON  (Trabajo.IDTRABAJO = Trab_depto.IDTRABAJO)
+   INNER JOIN TRAB_TAREA Trab_tarea
+   ON  (Trabajo.IDTRABAJO = Trab_tarea.IDTRABAJO)
+   LEFT OUTER JOIN PROVEEDOR Proveedor
+   ON  (Trabajo.IDPROVEEDOR = Proveedor.IDPROVEEDOR)
+   INNER JOIN TAREA Tarea
+   ON  (Trab_tarea.IDTAREA = Tarea.IDTAREA)

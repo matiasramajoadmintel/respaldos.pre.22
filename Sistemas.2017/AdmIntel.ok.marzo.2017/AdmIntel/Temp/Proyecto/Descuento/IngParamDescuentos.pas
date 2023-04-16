@@ -1,0 +1,145 @@
+unit IngParamDescuentos;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  StdCtrls, ExtCtrls, ComCtrls, Buttons, DateUtils, DB, DBTables;
+
+type
+  TfrmIngParamDescuentos = class(TForm)
+    Panel2: TPanel;
+    Panel1: TPanel;
+    lblIng: TLabel;
+    btnAceptar: TBitBtn;
+    BitBtn2: TBitBtn;
+    Label6: TLabel;
+    cmbOcupante: TComboBox;
+    cmbTipoDescuento: TComboBox;
+    Label1: TLabel;
+    Label2: TLabel;
+    cmbMes: TComboBox;
+    Label3: TLabel;
+    edtAno: TEdit;
+    UpDown1: TUpDown;
+    procedure Entrada_A_Campo(Sender: TObject);
+    procedure Salida_de_Campo(Sender: TObject);
+    procedure Teclitas(Sender:TObject; var Key:Word; Shift:TShiftState);
+    procedure PressEnter(Sender: TObject; var Key: Char);
+    procedure btnAceptarClick(Sender: TObject);
+
+  private
+    Teclas:byte;
+    procedure PrepararFormulario;
+
+  public
+    Function ObtenerDatos(var IdOcup: Longword; var IdTDesc: Byte; var Mes, Anio: Word):Boolean;
+
+  end;
+
+var
+  frmIngParamDescuentos: TfrmIngParamDescuentos;
+
+implementation
+
+uses Comunes, Util, PoolQuerys, PoolDatos;
+
+{$R *.DFM}
+
+//******************************************************************************
+//                         METODOS PUBLICOS                                   \\
+//******************************************************************************
+
+Function TfrmIngParamDescuentos.ObtenerDatos(var IdOcup: Longword; var IdTDesc: Byte; var Mes, Anio: Word):Boolean;
+var
+  Field: TField;
+begin
+  PrepararFormulario;
+
+  ShowModal;
+
+  Result := (ModalResult = MROK);
+
+  if Result then
+  begin
+    Field := TField(cmbOcupante.Items.Objects[cmbOcupante.ItemIndex]);
+    IdOcup := Field.Value;
+  end;
+end;
+
+//******************************************************************************
+//                         METODOS PRIVADOS                                   \\
+//******************************************************************************
+
+procedure TfrmIngParamDescuentos.PrepararFormulario;
+begin
+//  CargarListaCampo(cmbOcupante, dmQuerys.qryOcupActuales, 'Ocupante');
+
+  dmQuerys.qryOcupActuales.Open;
+  dmQuerys.qryOcupActuales.First;
+  while (not dmQuerys.qryOcupActuales.Eof) do
+  begin
+    cmbOcupante.Items.AddObject(dmQuerys.qryOcupActualesOCUPANTE.Text, dmQuerys.qryOcupActualesIDOCUPANTE);
+    dmQuerys.qryOcupActuales.Next;
+  end;
+
+  CargarListaCampo(cmbTipoDescuento, dmDatos.TDESC, 'Descripcion');
+  UpDown1.Position := CurrentYear;
+  ActiveControl := cmbOcupante;
+end;
+
+//******************************************************************************
+//                         MANEJO DE EVENTOS                                  \\
+//******************************************************************************
+
+procedure TfrmIngParamDescuentos.Entrada_A_Campo(Sender: TObject);
+begin
+  EntradaACampo(self,Sender);
+end;
+
+procedure TfrmIngParamDescuentos.Salida_de_Campo(Sender: TObject);
+begin
+  SalidaDeCampo(self,Sender);
+end;
+
+procedure TfrmIngParamDescuentos.Teclitas(Sender: TObject; var Key: Word;Shift: TShiftState);
+begin
+  if Shift = [] then teclas:=0;
+  if Shift = [ssShift] then  teclas:=1;
+end;
+
+procedure TfrmIngParamDescuentos.PressEnter(Sender: TObject; var Key: Char);
+begin
+  if key = #13 then
+  begin
+    key:=chr(0);
+    Perform(WM_NEXTDLGCTL,Teclas,0);
+  end;
+
+  if Key = #27 then ModalResult := mrCancel;
+end;
+
+procedure TfrmIngParamDescuentos.btnAceptarClick(Sender: TObject);
+begin
+  if (cmbOcupante.Text = '') then
+  begin
+    MsjError('Debe ingresar un ocupante');
+    Exit;
+  end;
+
+  if (cmbTipoDescuento.Text = '') then
+  begin
+    MsjError('Debe ingresar un tipo de descuento');
+    Exit;
+  end;
+
+  if (cmbMes.Text = '') then
+  begin
+    MsjError('Debe ingresar un mes');
+    Exit;
+  end;
+
+  ModalResult := mrOk;
+end;
+
+end.
